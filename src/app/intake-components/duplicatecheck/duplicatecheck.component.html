@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-12">
+    <button class="btn btn-rounded" routerLink="/mainlayout/reviewcase">
+      <span class="fas fa-arrow-left"></span>
+    </button>
+  </div>
+</div>
+
+<div class="row breadcrumb bg-header p-3 mt-3">
+  <div class="col-1 text-center">Case ID</div>
+  <div class="col-8 text-center">Description</div>
+  <div class="col-2 text-center">Deadline</div>
+  <div class="col-1 text-center">Priority Queue</div>
+</div>
+
+<div class="row breadcrumb bg-data p-3 mt-2" *ngFor="let case of caseList; let i = index">
+  <div class="col-5">
+    <div class="row">
+      <div class="col-4 pl-0 my-auto elipsis" title="{{ case.caseId }}">
+        {{ case.caseId }}
+      </div>
+      <div class="col-8">
+        <div *ngIf="case.requestingService === 'ui-service'">
+          Source: Narative / File Upload
+          <span class="badge badge-primary">
+            Narative / File Upload
+          </span>
+        </div>
+        <div *ngIf="case.requestingService === 'email-service'">
+          Source: Email
+          <span class="badge badge-primary">
+            Email
+          </span>
+        </div>
+        <div>Reporter: {{case.nerMappedData.header.reporterName}}</div>
+        <div *ngIf="case.finalNer">
+          Reported Date:
+          {{ formatToDate(case.finalNer.header.dateOfThisReport)}}
+        </div>
+        <div *ngIf="!case.finalNer">
+          Reported Date:
+          {{ formatToDate(case.nerMappedData.header.dateOfThisReport)}}
+        </div>
+        <div *ngIf="case.finalNer" class="elipsis" title="{{case.nerMappedData.header.dateReceived}}">Received
+          Date:{{ formatToDate(case.finalNer.header.dateReceived)}}</div>
+
+        <div *ngIf="!case.finalNer" class="elipsis" title="{{case.nerMappedData.header.dateReceived}}">Received
+          Date:{{ formatToDate(case.nerMappedData.header.dateReceived)}}</div>
+        <div>
+          Status:<span class="badge badge-primary">{{ case.status.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <!-- <div>Region: N/A</div> -->
+    <div>Drug Name: {{ case.drugName }}</div>
+    <!-- <div>Adverse Effects: N/A</div> -->
+    <div *ngIf="case.severity">
+      <span class="badge badge-danger" style="font-size: 12px;">Serious</span>
+    </div>
+
+    <div *ngIf="!case.severity">
+      <span class="badge badge-primary" style="font-size: 12px;">Not Serious</span>
+    </div>
+    <div>
+      Case Description:
+      <span title="{{ case.eventDescription }}" *ngIf="case.eventDescription">
+        {{
+          case.eventDescription.length > 20
+            ? (case.eventDescription | slice: 0:20) + ".."
+            : case.eventDescription
+        }}
+      </span>
+    </div>
+  </div>
+  <div class="col-2 text-center">
+    <span class="xx-large">{{ ( case.deadline ) ? case.deadline : 0 }}</span>
+    <span class="ml-1">Days</span>
+  </div>
+  <div class="col-1 text-center">
+    <span>{{ ((case.priority) ? case.priority : '' ) | uppercase }}</span>
+    <div>
+      <span *ngIf="case.priority === 'high'" class="badge badge-danger">Priority</span>
+      <span *ngIf="case.priority === 'medium'" class="badge badge-warning">Priority</span>
+      <span *ngIf="case.priority === 'low'" class="badge badge-success">Priority</span>
+    </div>
+  </div>
+</div>

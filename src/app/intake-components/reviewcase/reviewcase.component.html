@@ -1,0 +1,562 @@
+<!--
+  /**
+* Author - Lohit
+* Version - 1.1
+* Create date - 19 oct 2019
+*/
+-->
+
+
+<div class="row">
+
+  <div class="col-12">
+    <div class="row d-flex justify-content-end">
+      <div>
+        <label for="sortBy">Sort By: </label>
+        <mat-form-field id="sortBy" class="ml-2" floatLabel="never">
+          <mat-select placeholder="--select--" [(ngModel)]="sortLabelValue">
+            <mat-option *ngFor="let label of sortLabels" [value]="label.key">{{label.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button class="ml-2 btn btn-rounded btn-primary" *ngIf="sortLabelValue" (click)="setOrder(sortLabelValue)">
+          <span>A <=> Z</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter section -->
+    <!-- <div class="row"> -->
+    <!-- <mat-card class="mt-1" style="background-color: #d8d8d8a6;">
+      <div class="d-flex justify-content-center mb-1">
+        <span>
+          <i class="text-20 i-Filter-2"></i>
+        </span>
+        <span>Filters</span>
+      </div>
+
+
+      <div [style.display]="filterFlag ? 'none' : 'block'">
+        <div class="row ml-auto mr-auto">
+
+          <div class="col-12">
+            <div class="row text-center mr-4 justify-content-start">
+              <div *ngFor="let filter of filterData; let i = index" class="mr-4">
+                <mat-form-field>
+                  <mat-select multiple placeholder="{{filter.label}}" [(ngModel)]="finalFilter[i]">
+                    <mat-option *ngFor="let option of filter.value" [value]="option"
+                      (click)="filterItem(filter.key, filter, option)">
+                      {{option}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-3 text-center mr-4 mt-2">
+            <div class="row">
+              <label class="col-2">Date From</label>
+              <div class="col-8 mt-1 pr-0">
+
+                <input matInput [max]="filterDateTo" [matDatepicker]="picker1" [(ngModel)]="filterDateFrom"
+                  class="form-control form-control-rounded" />
+              </div>
+              <div class="col-2 pl-0 pr-0">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-6 col-sm-3 text-center mr-4 mt-2">
+            <div class="row">
+              <label class="col-2">Date To </label>
+              <div class="col-8 pr-0 mt-1">
+                <input matInput [max]="filterDateMax" [min]="filterDateFrom" [matDatepicker]="picker2"
+                  [(ngModel)]="filterDateTo" class="form-control form-control-rounded" />
+              </div>
+              <div class="col-2 pl-0 pr-0">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </div>
+            </div>
+          </div>
+
+          <span class="col-6 col-sm-2 mt-3 text-center d-inline-flex">
+            <div>
+              <button class="btn btn-primary btn-rounded"
+                [disabled]="filters.length == 0 && !(filterDateTo && filterDateFrom)" type="button" ngbAutofocus
+                (click)="searchCases('true')">
+                Apply Filters
+              </button>
+            </div>
+
+            <div class="ml-3">
+              <button type="button" (click)="clearFilter(); clearCases();" ngbAutofocus
+                class="btn btn-primary btn-rounded ">
+                Clear Filters
+              </button>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <span (click)="displayfilter(true)" style="cursor: pointer" class="fa fa-caret-up" *ngIf="!filterFlag"></span>
+        <span (click)="displayfilter(false)" style="cursor: pointer" class="fa fa-caret-down" *ngIf="filterFlag"></span>
+      </div>
+    </mat-card> -->
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <mat-form-field class="w-100">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let filter of filters" [removable]="false" (removed)="remove(filter)">
+              {{ filter }}
+            </mat-chip>
+
+            <mat-chip *ngIf="filterDateFrom">{{filterDateFrom | date: 'shortDate'}}</mat-chip>
+            <mat-chip *ngIf="filterDateTo">{{filterDateTo | date: 'shortDate'}}</mat-chip>
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+</div>
+<mat-tab-group mat-stretch-tabs (selectedTabChange)="matClick($event)">
+  <mat-tab label="My Cases">
+    <ng-template matTabContent>
+      <div class="row breadcrumb bg-header p-3 mt-3">
+        <div class="col-1 text-center">Case ID</div>
+        <div class="col-7 text-center">Description</div>
+        <div class="col-2 text-center">Deadline</div>
+        <div class="col-1 text-center">Priority Queue</div>
+        <div class="col-1 text-center">Created Date</div>
+      </div>
+
+      <div class="row breadcrumb bg-data p-3 mt-2"
+        *ngFor="let case of caseList | orderBy: sortLabelValue:reverse:'case-insensitive'; let i = index">
+        <div class="col-5">
+          <div class="row">
+            <div class="col-4 c-p pl-0 my-auto elipsis" title="{{ case.caseId }}">
+              <u routerLink="/mainlayout/casedetails/{{ case.caseId }}">{{
+                case.caseId
+              }}</u>
+            </div>
+            <div class="col-8">
+              <div *ngIf="case.requestingService === 'ui-service'">
+                Source: Narative / File Upload
+                <span class="badge badge-primary">
+                  Narative / File Upload
+                </span>
+              </div>
+              <div *ngIf="case.requestingService === 'email-service'">
+                Source: Email
+                <span class="badge badge-primary">
+                  Email
+                </span>
+              </div>
+              <div>Reporter: {{case.nerMappedData.header.reporterName}}</div>
+              <div *ngIf="case.finalNer">
+                Reported Date:
+                {{ formatToDate(case.finalNer.header.dateOfThisReport) }}
+              </div>
+              <div *ngIf="!case.finalNer">
+                Reported Date:
+                {{ formatToDate(case.nerMappedData.header.dateOfThisReport) }}
+              </div>
+              <div *ngIf="case.finalNer" class="elipsis" title="{{case.nerMappedData.header.dateReceived}}">Received
+                Date:{{ formatToDate(case.finalNer.header.dateReceived) }}</div>
+
+              <div *ngIf="!case.finalNer" class="elipsis" title="{{case.nerMappedData.header.dateReceived}}">Received
+                Date:{{ formatToDate(case.nerMappedData.header.dateReceived) }}</div>
+              <div>
+                Status:<span class="badge badge-primary">{{
+                  case?.status?.name
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <!-- <div>Region: N/A</div> -->
+          <div>Drug Name: {{ case.drugName.suspectDrugName }}</div>
+          <!-- <div>Adverse Effects: N/A</div> -->
+          <div *ngIf="case.severity">
+            <span class="badge badge-danger" style="font-size: 12px;">Serious</span>
+          </div>
+
+          <div *ngIf="!case.severity">
+            <span class="badge badge-primary" style="font-size: 12px;">Not Serious</span>
+          </div>
+          <div>
+            Case Description:
+            <span title="{{ case.eventDescription }}" *ngIf="case.eventDescription">
+              {{
+                case.eventDescription.length > 20
+                  ? (case.eventDescription | slice: 0:20) + ".."
+                  : case.eventDescription
+              }}
+            </span>
+          </div>
+        </div>
+        <div class="col-2 text-center">
+          <span class="xx-large">{{ ( case.deadline ) ? case.deadline : 0 }}</span>
+          <span class="ml-1">Days</span>
+        </div>
+        <div class="col-1 text-center">
+          <span class="xx-medium">{{ ((case.priority) ? case.priority : '' ) | uppercase }}</span>
+          <div>
+            <span *ngIf="case.priority === 'high'" class="badge badge-danger">Priority</span>
+            <span *ngIf="case.priority === 'medium'" class="badge badge-warning">Priority</span>
+            <span *ngIf="case.priority === 'low'" class="badge badge-success">Priority</span>
+          </div>
+        </div>
+
+        <div class="col-1 text-center">
+          <span class="xx-medium">{{case.createdTime | date: "shortDate"}}</span>
+        </div>
+        <div *ngIf="!case.isCaseDuplicate" class="mt-1 col-12 breadcrumb bg-inner d-flex justify-content-center">
+          No Duplicates Found
+        </div>
+
+        <div *ngIf="case.isCaseDuplicate" class="mt-1 col-12 breadcrumb bg-danger d-flex justify-content-center"
+          style="color: white;">
+          Duplicates Found &nbsp;<a routerLink="/mainlayout/duplicatecheck/{{ case.caseId }}"
+            style="color: wheat; text-decoration: underline;">Click here to view</a>
+        </div>
+      </div>
+      <!-- <div class="p-2 mt-1">
+        <ngx-datatable class="material"
+                       [rows]="caseList"
+                       [columnMode]="'force'"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="40"
+                       [columnMode]="'force'"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [rowHeight]="40"
+                       rowHeight="auto"
+                       [messages]="nodata">
+          <ngx-datatable-column prop="caseId">
+            <ng-template ngx-datatable-header-template
+                         let-sort="sortFn">
+              <span class="c-p">Case Id</span>
+            </ng-template>
+            <ng-template let-value="value"
+                         ngx-datatable-cell-template>
+              <p class="c-p"
+                 style="text-decoration: underline;"
+                 routerLink="/mainlayout/casedetails/{{ value }}">
+                {{ value }}
+              </p>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="severity">
+            <ng-template ngx-datatable-header-template
+                         let-sort="sortFn">
+              <span class="c-p">Seriousness</span>
+            </ng-template>
+            <ng-template let-value="value"
+                         ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="createdTime">
+            <ng-template ngx-datatable-header-template
+                         let-sort="sortFn">
+              <span class="c-p">Reported Date</span>
+            </ng-template>
+            <ng-template let-value="value"
+                         ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column prop="status">
+            <ng-template ngx-datatable-header-template
+                         let-sort="sortFn">
+              <span class="c-p">Status</span>
+            </ng-template>
+            <ng-template let-value="value"
+                         ngx-datatable-cell-template>
+              <img src="../../../assets/images/processing.png"
+                   *ngIf="value === 'processing'"
+                   height="30px"
+                   title="{{ value }}"
+                   style="cursor: pointer" />
+              <img src="../../../assets/images/approve.png"
+                   *ngIf="value === 'approved'"
+                   height="30px"
+                   title="{{ value }}"
+                   style="cursor: pointer" />
+              <img src="../../../assets/images/reject.png"
+                   *ngIf="value === 'rejected'"
+                   height="30px"
+                   title="{{ value }}"
+                   style="cursor: pointer" />
+              <img src="../../../assets/images/reject.png"
+                   *ngIf="value === 'failed'"
+                   height="30px"
+                   title="{{ value }}"
+                   style="cursor: pointer" />
+              <div class="c100 small green p100"
+                   *ngIf="value === 'processed'"
+                   style="cursor: pointer"
+                   title="{{ value }}">
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+              </div>
+              <div class="c100 small green p40"
+                   *ngIf="value === 'new'"
+                   style="cursor: pointer"
+                   title="{{ value }}">
+                <div class="slice">
+                  <div class="bar"></div>
+                  <div class="fill"></div>
+                </div>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div> -->
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="All Cases">
+    <ng-template matTabContent>
+      <div class="row mt-2">
+        <div class="ml-4 ">
+          <!-- <button class="btn btn-rounded btn-primary" (click)="assignToMe()"
+            [disabled]="assignFlag || !create || !update">
+            Assign to me
+          </button> -->
+        </div>
+      </div>
+      <div class="row breadcrumb bg-header p-3 mt-3">
+        <!-- <div class="col-1 text-center">Assign</div> -->
+        <div class="col-2 text-center">Case ID</div>
+        <div class="col-6 text-center">Description</div>
+        <div class="col-2 text-center">Deadline</div>
+        <div class="col-1 text-right">Priority Queue</div>
+        <div class="col-1 text-center">Created Date</div>
+      </div>
+
+      <div class="row breadcrumb bg-data p-3 mt-2"
+        *ngFor="let case of caseList | orderBy: sortLabelValue:reverse:'case-insensitive' ; let i = index">
+        <!-- <div class="col-1 text-center">
+          <mat-checkbox class="mt-1" (change)="selectCase($event, i)"></mat-checkbox>
+        </div> -->
+        <div class="col-5">
+          <div class="row">
+            <div class="col-3 c-p pl-0 my-auto elipsis" title="{{ case.caseId }}">
+              <u routerLink="/mainlayout/casedetails/{{ case.caseId }}">{{
+                case.caseId
+              }}</u>
+            </div>
+            <div class="col-9">
+              <div *ngIf="case.requestingService === 'ui-service'">
+                Source: Narative / File Upload
+                <span class="badge badge-primary">
+                  Narative / File Upload
+                </span>
+              </div>
+              <div *ngIf="case.requestingService === 'email-service'">
+                Source: Email
+                <span class="badge badge-primary">
+                  Email
+                </span>
+              </div>
+              <div>Reporter: {{case.nerMappedData.header.reporterName}}</div>
+              <div *ngIf="case.finalNer">
+                Reported Date:
+                {{ formatToDate(case.finalNer.header.dateOfThisReport) }}
+              </div>
+              <div *ngIf="!case.finalNer">
+                Reported Date:
+                {{ formatToDate(case.nerMappedData.header.dateOfThisReport) }}
+              </div>
+              <div *ngIf="case.finalNer" class="elipsis" title="{{case.nerMappedData.header.dateReceived}}">Received
+                Date:{{ formatToDate(case.finalNer.header.dateReceived) }}</div>
+
+              <div *ngIf="!case.finalNer" class="elipsis" title="{{case.nerMappedData.header.dateReceived}}">Received
+                Date:{{ formatToDate(case.nerMappedData.header.dateReceived) }}</div>
+
+              <div>
+                Status:<span class="badge badge-primary">{{
+                  case?.status?.name
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <!-- <div>Region: N/A</div> -->
+          <div>Drug Name: {{ case.drugName.suspectDrugName }}</div>
+          <!-- <div>Adverse Effects: N/A</div> -->
+          <div *ngIf="case.severity">
+            <span class="badge badge-danger" style="font-size: 12px;">Serious</span>
+          </div>
+
+          <div *ngIf="!case.severity">
+            <span class="badge badge-primary" style="font-size: 12px;">Not Serious</span>
+          </div>
+          <div>
+            Case Description:
+            <span title="{{ case.eventDescription }}" *ngIf="case.eventDescription">
+              {{
+                case.eventDescription.length > 20
+                  ? (case.eventDescription | slice: 0:20) + ".."
+                  : case.eventDescription
+              }}
+            </span>
+          </div>
+        </div>
+        <div class="col-2 text-center">
+          <span class="xx-large">{{ ( case.deadline ) ? case.deadline : 0 }}</span>
+          <span class="ml-1">Days</span>
+        </div>
+        <div class="col-1 text-center">
+          <span class="xx-medium">{{ ((case.priority) ? case.priority : '' ) | uppercase}}</span>
+          <div>
+            <span *ngIf="case.priority === 'high'" class="badge badge-danger">Priority</span>
+            <span *ngIf="case.priority === 'medium'" class="badge badge-warning">Priority</span>
+            <span *ngIf="case.priority === 'low'" class="badge badge-success">Priority</span>
+          </div>
+        </div>
+
+        <div class="col-1 text-center">
+          <span class="xx-medium">{{case.createdTime | date: "shortDate"}}</span>
+        </div>
+        <div *ngIf="!case.isCaseDuplicate" class="mt-1 col-12 breadcrumb bg-inner d-flex justify-content-center">
+          No Duplicates Found
+        </div>
+
+        <div *ngIf="case.isCaseDuplicate" class="mt-1 col-12 breadcrumb bg-danger d-flex justify-content-center"
+          style="color: white;">
+          Duplicates Found &nbsp;<a routerLink="/mainlayout/duplicatecheck/{{ case.caseId }}"
+            style="color: wheat; text-decoration: underline;">Click here to view</a>
+        </div>
+      </div>
+      <!-- <div class="p-3"> -->
+
+      <!-- <div class="p-2 mt-1">
+          <ngx-datatable class="material"
+                         [rows]="caseList"
+                         [columnMode]="'force'"
+                         [headerHeight]="50"
+                         [footerHeight]="50"
+                         [rowHeight]="40"
+                         [columnMode]="'force'"
+                         [headerHeight]="50"
+                         [footerHeight]="50"
+                         [rowHeight]="40"
+                         rowHeight="auto"
+                         [messages]="nodata">
+            <ngx-datatable-column prop="Check">
+              <ng-template ngx-datatable-header-template
+                           let-sort="sortFn">
+                <span class="c-p">Assign</span>
+              </ng-template>
+              <ng-template let-value="value"
+                           ngx-datatable-cell-template
+                           let-rowIndex="rowIndex">
+                <mat-checkbox (change)="selectCase($event, rowIndex)"
+                              class="mt-1"></mat-checkbox>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="caseId">
+              <ng-template ngx-datatable-header-template
+                           let-sort="sortFn">
+                <span class="c-p">Case Id</span>
+              </ng-template>
+              <ng-template let-value="value"
+                           ngx-datatable-cell-template>
+                <p class="c-p"
+                   style="text-decoration: underline;"
+                   routerLink="/mainlayout/casedetails/{{ value }}">
+                  {{ value }}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="severity">
+              <ng-template ngx-datatable-header-template
+                           let-sort="sortFn">
+                <span class="c-p">Seriousness</span>
+              </ng-template>
+              <ng-template let-value="value"
+                           ngx-datatable-cell-template>
+                {{ value }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="createdTime">
+              <ng-template ngx-datatable-header-template
+                           let-sort="sortFn">
+                <span class="c-p">Reported Date</span>
+              </ng-template>
+              <ng-template let-value="value"
+                           ngx-datatable-cell-template>
+                {{ formatToDate(value) | date: "dd/MM/yyyy" }}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="status">
+              <ng-template ngx-datatable-header-template
+                           let-sort="sortFn">
+                <span class="c-p">Status</span>
+              </ng-template>
+              <ng-template let-value="value"
+                           ngx-datatable-cell-template>
+                <img src="../../../assets/images/processing.png"
+                     *ngIf="value === 'processing'"
+                     height="30px"
+                     title="{{ value }}"
+                     style="cursor: pointer" />
+                <img src="../../../assets/images/approve.png"
+                     *ngIf="value === 'approved'"
+                     height="30px"
+                     title="{{ value }}"
+                     style="cursor: pointer" />
+                <img src="../../../assets/images/reject.png"
+                     *ngIf="value === 'rejected'"
+                     height="30px"
+                     title="{{ value }}"
+                     style="cursor: pointer" />
+                <img src="../../../assets/images/reject.png"
+                     *ngIf="value === 'failed'"
+                     height="30px"
+                     title="{{ value }}"
+                     style="cursor: pointer" />
+                <div class="c100 small green p100"
+                     *ngIf="value === 'processed'"
+                     style="cursor: pointer"
+                     title="{{ value }}">
+                  <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                  </div>
+                </div>
+                <div class="c100 small green p40"
+                     *ngIf="value === 'new'"
+                     style="cursor: pointer"
+                     title="{{ value }}">
+                  <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div> -->
+      <!-- </div> -->
+    </ng-template>
+  </mat-tab>
+
+</mat-tab-group>
+
+<!-- <router-outlet></router-outlet> -->

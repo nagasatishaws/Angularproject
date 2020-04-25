@@ -1,0 +1,70 @@
+<form>
+    <div *ngIf="createReference.hasOwnProperty('orderNumber')" class="row form-group">
+        <div class="col-4"><label><strong>Order Number *</strong></label></div>
+        <div class="col-8 py-1"><input [(ngModel)]="createReference.orderNumber"
+                class="form-control form-control-rounded" placeholder="Order Number" type="text" name="orderNumber" />
+        </div>
+    </div>
+    <div *ngIf="createReference.hasOwnProperty('mandatory')" class="row form-group">
+        <div class="col-4"><label><strong>Mandatory *</strong></label></div>
+        <div class="col-8 py-1">
+            <mat-select [(ngModel)]="createReference.mandatory" class="form-control form-control-rounded"
+                placeholder="Mandatory" name="mandatory">
+                <mat-option *ngFor="let yn of yesno" [value]="yn">{{ yn }}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div *ngIf="createReference.hasOwnProperty('enabled')" class="row form-group">
+        <div class="col-4"><label><strong>Enabled *</strong></label></div>
+        <div class="col-8 py-1">
+            <mat-select [(ngModel)]="createReference.enabled" class="form-control form-control-rounded"
+                placeholder="Enabled" name="enabled">
+                <mat-option *ngFor="let yn of yesno" [value]="yn">{{ yn }}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div *ngIf="createReference.hasOwnProperty('enterable')" class="row form-group">
+        <div class="col-4"><label><strong>Enterable *</strong></label></div>
+        <div class="col-8 py-1">
+            <mat-select [(ngModel)]="createReference.enterable" class="form-control form-control-rounded"
+                placeholder="Enterable" name="enterable">
+                <mat-option *ngFor="let yn of yesno" [value]="yn">{{ yn }}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div *ngIf="createReference.hasOwnProperty('logline')" class="row form-group">
+        <div class="col-4"><label><strong>Logline</strong></label></div>
+        <div class="col-8 py-1">
+            <mat-select [(ngModel)]="createReference.logline" class="form-control form-control-rounded"
+                placeholder="Logline" name="logline">
+                <mat-option *ngFor="let yn of yesno" [value]="yn">{{ yn }}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div *ngIf="createReference.hasOwnProperty('collectionExceptionConditionDefId')" class="row form-group">
+        <div class="col-4"><label><strong>Collection Exception Condition Def</strong></label></div>
+        <div class="col-8 py-1">
+            <mat-select [(ngModel)]="createReference.collectionExceptionConditionDefId"
+                class="form-control form-control-rounded" name="collectionExceptionConditionDefId"
+                placeholder="Collection Exception Condition Def">
+                <mat-option *ngFor="let ecd of exceptionConditionDefs" [value]="ecd.id">{{ ecd.oid }}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <!-- methodDefId -->
+    <div *ngIf="createReference.hasOwnProperty('methodDefId')" class="row form-group">
+        <div class="col-4"><label><strong>Method Def Id</strong></label></div>
+        <div class="col-8 py-1">
+            <mat-select [(ngModel)]="createReference.methodDefId" class="form-control form-control-rounded"
+                name="methodDefId" placeholder="Method Def Id">
+                <mat-option *ngFor="let md of methodDefs" [value]="md.id">{{ md.oid }}</mat-option>
+            </mat-select>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-12 text-right">
+            <button type="button" (click)="addCreatedReference();" class="btn btn-primary btn-rounded mt-4">Create
+                Reference</button>
+        </div>
+    </div>
+</form>

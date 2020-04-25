@@ -1,0 +1,49 @@
+<div class="row m-2">
+  <div class="col-12">
+    <!-- <div class="form-group row mt-2">
+      <div class="col-12">
+        <label>Case Narrative</label>
+        <textarea class="form-control form-control-rounded" placeholder="Case Narrative" rows="5"
+          [(ngModel)]="data.narrative"></textarea>
+      </div>
+    </div> -->
+
+    <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Case Reaction Evaluation</label>
+        <div class="row">
+          <div class="col-12">
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.reactionEvaluation.patientDied">Patient died
+            <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.reactionEvaluation.hospitalization">Involved
+            or prolonged inpatient hospitalization <br>
+            <input class="my-auto mx-1" type="checkbox"
+              [(ngModel)]="data.reactionEvaluation.disabilityOrIncapacity">Involved persistence or significant
+            disability or incapacity
+            <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.reactionEvaluation.lifeThreatening">Life
+            threatening <br>
+            <input class="my-auto mx-1" type="checkbox"
+              [(ngModel)]="data.reactionEvaluation.congenitalAnomaly">Congenital Anomaly <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.reactionEvaluation.othersFlag">Other <br>
+            <input *ngIf="data.reactionEvaluation.othersFlag" class="form-control form-control-rounded" type="text"
+              placeholder="Other Specify">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label>Case Safety</label>
+        <div class="row">
+          <div class="col-12">
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.safety.listedOrExpected">Listedness /
+            Expectedness <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.safety.includeInReports">Include in
+            Reports(CIOMS) <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.safety.lineListing">Line Listing <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

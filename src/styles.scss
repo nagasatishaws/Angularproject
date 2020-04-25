@@ -1,0 +1,201 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+span, p, html, li, button, a, div, h1, h2, h3, h4, h5, h6, th, tr {
+  // font-family: 'Courier New', Courier, monospace;
+  font-family: 'Roboto', sans-serif;
+  color: #404040;
+}
+
+table td { word-wrap:break-word;}
+
+.mat-mini-fab mat-icon {
+  color: white;
+}
+
+.datatable-body, .datatable-header {
+  width: auto !important;
+}
+
+// .mat-dialog-container {
+//   padding: 0px !important;
+// }
+
+.search-bar-custom {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 20px;
+  position: relative;
+  width: 230px;
+  height: 40px;
+
+  input {
+    background: transparent;
+    border: 0;
+    color: #212121;
+    font-size: 0.8rem;
+    line-height: 2;
+    height: 100%;
+    outline: initial !important;
+    padding: 0.5rem 1rem;
+    width: calc(100% - 32px);
+  }
+
+  .search-icon {
+    font-size: 18px;
+    width: 24px;
+    display: inline-block;
+  }
+}
+
+.c-p {
+  cursor: pointer;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #07f827 !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgba(109, 255, 64, 0.54);
+}
+
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  text-align: left;
+  padding: 0.5rem 1.2rem;
+  vertical-align: top;
+  border-top: 0;
+  color: rgba(0, 0, 0, 0.87);
+  transition: width 0.3s ease;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.mat-drawer-container {
+  background-color: #c3393900;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 0px !important;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.mat-drawer-content {
+  position: relative !important;
+  z-index: 1 !important;
+  display: block !important;
+  height: 100% !important;
+  // overflow: hidden !important;
+}
+
+.mat-drawer-inner-container {
+  width: 100% !important;
+  height: 100% !important;
+  // overflow: hidden !important;
+  // -webkit-overflow-scrolling: touch;
+}
+
+.elipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mat-tab-body.mat-tab-body-active {
+  position: relative;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  z-index: 1;
+  flex-grow: 1;
+}
+
+.mat-tab-body-content {
+  height: 100%;
+  overflow: hidden !important;
+}
+
+
+.highlight-cat-age, .highlight-cat-sex, .highlight-cat-weight, .highlight-cat-race, .highlight-cat-suspect-drug,
+.highlight-cat-dosage, .highlight-cat-date,
+.highlight-cat-adverse-events, .highlight-cat-seriousness, .highlight-cat-dosage-form {
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+
+.highlight-age, .highlight-sex, .highlight-weight, .highlight-race, .highlight-suspect-drug,
+.highlight-dosage, .highlight-date,
+.highlight-adverse-events, .highlight-seriousness, .highlight-dosage-form {
+  font-family: 'Open Sans', sans-serif;
+  display: inline;
+  margin: 0;
+  padding: 2px 10px;
+  border-radius: 4px;
+}
+
+.highlight-age {
+  background-color: rgb(112, 189, 214);
+}
+
+.highlight-sex {
+  background-color: rgb(248, 156, 228);
+}
+
+.highlight-weight {
+  background-color: rgb(56, 219, 132);
+}
+
+.highlight-race {
+  background-color: rgb(255, 143, 78);
+}
+
+.highlight-suspect-drug {
+  background-color: rgb(246, 196, 80);
+}
+
+.highlight-dosage {
+  background-color: rgb(159, 216, 85);
+}
+
+.highlight-date {
+  background-color: rgb(243, 234, 111);
+}
+
+// .highlight-start-date {
+//   background-color: rgb(243, 234, 111);
+// }
+
+// .highlight-stop-date {
+//   background-color: rgb(243, 234, 111);
+// }
+
+.highlight-adverse-events {
+  background-color: rgb(255, 123, 123);
+}
+
+.highlight-dosage-form {
+  background-color: rgb(151, 248, 219);
+}
+
+.highlight-seriousness {
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+
+.datatable-scroller {
+  width: 100% !important;
+}

@@ -1,0 +1,17 @@
+<div class="mx-0">
+    <form class="row w-100" [formGroup]="selectForm">
+        <div class="col-4">
+            <mat-select formControlName="lang" class="form-control form-control-rounded" placeholder="Languages">
+                <mat-option *ngFor="let lang of selectionType" [value]="lang.value">{{ lang.value }}
+                </mat-option>
+            </mat-select>
+        </div>
+        <div class="col-7 px-0">
+            <input placeholder="Description" formControlName="text" class="form-control form-control-rounded" />
+        </div>
+        <div class="col-1">
+            <button type="button" (click)="addItem();" [disabled]="!selectForm.valid"
+                class="btn btn-primary btn-rounded">Add</button>
+        </div>
+    </form>
+</div>

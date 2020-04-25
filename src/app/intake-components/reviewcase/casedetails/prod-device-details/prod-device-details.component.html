@@ -1,0 +1,176 @@
+<div class="row m-2">
+  <div class="col-12">
+
+    <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Suspect Device Name</label>
+        <input class="form-control form-control-rounded" type="text" placeholder="Suspect Device Name"
+          [(ngModel)]="data.deviceName">
+      </div>
+
+      <div class="col-6">
+        <label>Cross Reference</label>
+        <input class="form-control form-control-rounded" type="text" placeholder="Cross Reference"
+          [(ngModel)]="data.crossReference">
+      </div>
+    </div>
+
+    <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Safety Date</label>
+        <input class="form-control form-control-rounded" type="date" placeholder="Safety Date"
+          [(ngModel)]="data.safetyDate">
+      </div>
+
+      <div class="col-6">
+        <label>Sent Date</label>
+        <input class="form-control form-control-rounded" type="date" placeholder="Sent Date"
+          [(ngModel)]="data.sentDate">
+      </div>
+    </div>
+
+    <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Global ID</label>
+        <input class="form-control form-control-rounded" type="text" placeholder="Global ID"
+          [(ngModel)]="data.globalId">
+      </div>
+
+      <div class="col-6">
+        <label>Quantity</label>
+        <input class="form-control form-control-rounded" type="text" placeholder="Quantity" [(ngModel)]="data.quantity">
+      </div>
+    </div>
+
+    <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Date Returned</label>
+        <input class="form-control form-control-rounded" type="date" placeholder="Date Returned"
+          [(ngModel)]="data.returnedDate">
+      </div>
+    </div>
+
+    <hr class="mt-2 mb-3">
+    <h5 class="mt-1">Suspect Device List</h5>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-responsive" style="border: 1px solid #ddd; table-layout: fixed;">
+          <thead>
+            <tr style="text-align: center;">
+              <th scope="col" *ngFor="let header of labDetailsHeaders">{{header}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data.deviceDetails; let i = index" style="text-align: center;">
+              <td colspan="1" *ngFor="let key of labDetailsKeys;">{{row[key]}}</td>
+              <td>
+                <div class="row">
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-edit c-p" (click)="editRowClick(i)"></span>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-trash text-danger c-p" (click)="deleteRowClick(i)"></span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hr class="mt-2 mb-3">
+
+    <form [formGroup]="formGroup">
+      <div class="row mt-1">
+        <div class="col-12">
+          <div class="form-group row">
+            <div class="col-4">
+              <label>CID Number</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="CID Number"
+                formControlName="cidNumber">
+            </div>
+            <div class="col-4">
+              <label>PCID Number</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="PCID Number"
+                formControlName="pcidNumber">
+            </div>
+            <div class="col-4">
+              <label>Lot Number</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Lot Number"
+                formControlName="lotNumber">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <label>Complaint Categories Date</label>
+              <input class="form-control form-control-rounded" type="date" placeholder="Complaint Categories Date"
+                formControlName="complaintCatDate">
+            </div>
+            <div class="col-6">
+              <label>Complaint Categories Text</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Complaint Categories Text"
+                formControlName="complaintCatText">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <label>Analysis Categories Date</label>
+              <input class="form-control form-control-rounded" type="date" placeholder="Analysis Categories Date"
+                formControlName="analysisCatDate">
+            </div>
+            <div class="col-6">
+              <label>Analysis Categories Text</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Analysis Categories Text"
+                formControlName="analysisCatText">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <label>Analysis Summary Date</label>
+              <input class="form-control form-control-rounded" type="date" placeholder="Analysis Summary Date"
+                formControlName="analysisSummaryDate">
+            </div>
+            <div class="col-6">
+              <label>Analysis Summary Text</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Analysis Summary Text"
+                formControlName="analysisSummaryText">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <label>QC Result Date</label>
+              <input class="form-control form-control-rounded" type="date" placeholder="QC Result Date"
+                formControlName="qcResultDate">
+            </div>
+            <div class="col-6">
+              <label>QC Result Text</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="QC Result Text"
+                formControlName="qcResultText">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-12">
+              <label>QC Result Comments</label>
+              <textarea class="form-control form-control-rounded" placeholder="QC Result Comments"
+                formControlName="qcResultComments" rows="5"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row mt-1">
+            <div class="col-12 d-flex justify-content-end">
+              <button *ngIf="!editFlag" class="btn btn-rounded btn-primary mr-2" (click)="addRow()">Add</button>
+              <button *ngIf="editFlag" class="btn btn-rounded btn-primary mr-2" (click)="updateRow()">Update</button>
+              <button class="btn btn-rounded btn-secondary" (click)="cancel()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

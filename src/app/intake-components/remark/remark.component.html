@@ -1,0 +1,127 @@
+<div class="mat-dialog-title" style="margin: -10px 0 10px !important">
+  <div>{{ data.statusTitle }}</div>
+</div>
+<hr style="margin: 0px -24px 15px;" />
+<div class="mat-dialog-content my-2">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 modal-content-labels">
+      <strong>{{ data.statusText }}</strong>
+    </div>
+    <div class="my-2 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 modal-content-labels"
+      *ngIf="data?.originalCaseIdNeeded">
+      <!-- <mat-select placeholder="Please select the case" [(ngModel)]="data.originalCaseId">
+        <mat-option *ngFor="let case of caseList; let i = index" [value]="case.caseId">
+          <div class="row">
+            <div class="col-10">
+              <span>{{case.caseId}}</span>
+            </div>
+            <div class="col-2 my-auto">
+              <mat-icon class="float-right" cdkOverlayOrigin #caseDescription="cdkOverlayOrigin"
+                (mouseenter)="testMouseEnter($event, i)" (mouseleave)="testMouseLeave($event, i)">info
+              </mat-icon>
+              <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="caseDescription"
+                [cdkConnectedOverlayOpen]="showCaseDesc[i]">
+                <div class="card">
+                  <div class="card-body">
+                    {{case?.eventDescription}}
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </mat-option>
+      </mat-select> -->
+
+      <form [formGroup]="caseForm">
+        <!-- <mat-form-field class="example-full-width"> -->
+        <input class="form-control form-control-rounded" placeholder="Type Case ID" aria-label="Case"
+          [matAutocomplete]="auto" formControlName="caseCtrl">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-optgroup *ngFor="let group of filteredCases | async" [label]="group.label">
+            <mat-option *ngFor="let case of group.cases; let i = index" [value]="case.caseId">
+              <div class="row">
+                <div class="col-10">
+                  <span>{{case.caseId}}</span>
+                </div>
+                <div class="col-2 my-auto">
+                  <mat-icon class="float-right" cdkOverlayOrigin #caseDescription="cdkOverlayOrigin"
+                    (mouseenter)="testMouseEnter($event, i, group.label)"
+                    (mouseleave)="testMouseLeave($event, i, group.label)">info
+                  </mat-icon>
+                  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="caseDescription"
+                    [cdkConnectedOverlayOpen]="showCaseDesc[group.label + i]">
+                    <div class="card">
+                      <div class="card-body">
+                        {{case?.eventDescription}}
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </mat-option>
+          </mat-optgroup>
+          <!-- <mat-optgroup label="Duplicate">
+            <mat-option *ngFor="let case of filteredDuplicateCases | async; let i = index" [value]="case.caseId">
+              <div class="row">
+                <div class="col-10">
+                  <span>{{case.caseId}}</span>
+                </div>
+                <div class="col-2 my-auto">
+                  <mat-icon class="float-right" cdkOverlayOrigin #caseDescription="cdkOverlayOrigin"
+                    (mouseenter)="testMouseEnter($event, i)" (mouseleave)="testMouseLeave($event, i)">info
+                  </mat-icon>
+                  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="caseDescription"
+                    [cdkConnectedOverlayOpen]="showCaseDesc[i]">
+                    <div class="card">
+                      <div class="card-body">
+                        {{case?.eventDescription}}
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </mat-option>
+          </mat-optgroup> -->
+          <!-- <mat-optgroup label="All">
+            <mat-option *ngFor="let case of filteredAllCases | async; let i = index" [value]="case.caseId">
+              <div class="row">
+                <div class="col-10">
+                  <span>{{case.caseId}}</span>
+                </div>
+                <div class="col-2 my-auto">
+                  <mat-icon class="float-right" cdkOverlayOrigin #caseDescription="cdkOverlayOrigin"
+                    (mouseenter)="testMouseEnter($event, i)" (mouseleave)="testMouseLeave($event, i)">info
+                  </mat-icon>
+                  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="caseDescription"
+                    [cdkConnectedOverlayOpen]="showCaseDesc[i]">
+                    <div class="card">
+                      <div class="card-body">
+                        {{case?.eventDescription}}
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </mat-option>
+          </mat-optgroup> -->
+        </mat-autocomplete>
+        <!-- </mat-form-field> -->
+      </form>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 modal-content-labels my-1">
+      <textarea class="form-control form-control-rounded mt-2" placeholder="Remarks" rows="5" [(ngModel)]="data.remark">
+      </textarea>
+    </div>
+  </div>
+</div>
+<div class="row mat-dialog-actions mt-2" style="display:block !important;">
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn btn-primary btn-rounded mr-2" *ngIf="data.showSubmit"
+      (click)="modalSubmit();">{{ data.submitText }}</button>
+    <button class="btn btn-secondary btn-rounded " *ngIf="data.showCancel" (click)="modalCancel();"
+      style="margin-right:10px;">{{ data.cancelText }}</button>
+  </div>
+</div>
+
+<!-- cdkConnectedOverlay [cdkConnectedOverlayOrigin]="dateComp"
+    [cdkConnectedOverlayOpen]= -->

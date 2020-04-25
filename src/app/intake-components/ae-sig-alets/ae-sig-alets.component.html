@@ -1,0 +1,255 @@
+<div class="card m-2">
+  <div class="card-header">
+    <strong style="color: #663399; font-size: 14px;">AE SIGNALS</strong>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <input type="text" class="form-control form-control-rounded"
+          placeholder="Search for 'Drug', 'Adverse Event' or 'Drug' and 'Adverse Event'"
+          (keyup.enter)="showResultTab($event)">
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2">
+        <label><strong>Recent Searches: </strong></label>
+      </div>
+      <div class="col-8">
+        <span class="c-p" (click)="showSearchResult = true"
+          style="color: blue; text-decoration: underline;">Paracetamol</span>
+      </div>
+    </div>
+
+    <div class="card mt-4" *ngIf="showSearchResult">
+      <div class="card-header"><strong>Search Results</strong></div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <span>Found <strong>43</strong> alerts</span>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-12">
+            <strong>Filter by</strong>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-2">
+            <span>Alert status:</span>
+          </div>
+
+          <div class="col-10 d-inline-flex">
+            <mat-checkbox>All</mat-checkbox>
+            <mat-checkbox class="ml-3" [checked]="'true'">Open</mat-checkbox>
+            <mat-checkbox class="ml-3">Under Review</mat-checkbox>
+            <mat-checkbox class="ml-3">Signal</mat-checkbox>
+            <mat-checkbox class="ml-3">Non Alerts</mat-checkbox>
+            <mat-checkbox class="ml-3">Closed</mat-checkbox>
+            <mat-checkbox class="ml-3">Supressed</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-2">
+            <span>Date period:</span>
+          </div>
+
+          <div class="col-4">
+            <input type="date" class="form-control form-control-rounded" value="2020-01-12" />
+          </div>
+          <div class="col-2 my-auto d-flex justify-content-center">
+            <span>to</span>
+          </div>
+          <div class="col-4">
+            <input type="date" class="form-control form-control-rounded" value="2020-03-07" />
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-2">
+            <span>Alert type:</span>
+          </div>
+
+          <div class="col-10 d-inline-flex">
+            <mat-checkbox [checked]="'true'">All</mat-checkbox>
+            <mat-checkbox class="ml-3" [checked]="'true'">Fatal</mat-checkbox>
+            <mat-checkbox class="ml-3" [checked]="'true'">Disproportionality 025</mat-checkbox>
+            <mat-checkbox class="ml-3" [checked]="'true'">Rechallenge</mat-checkbox>
+            <mat-checkbox class="ml-3" [checked]="'true'">Periodic</mat-checkbox>
+            <mat-checkbox class="ml-3" [checked]="'true'">Lot Alert</mat-checkbox>
+            <mat-checkbox class="ml-3" [checked]="'true'">Age Group</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-2">
+            <strong>Results</strong>
+          </div>
+          <div class="col-10 d-inline-flex justify-content-end">
+            <span class="mr-2 c-p" style="color: blue; text-decoration: underline;">Prev</span>
+            <span class="mr-2">1</span>
+            <span class="mr-2 c-p" style="color: blue; text-decoration: underline;">2</span>
+            <span class="mr-2 c-p" style="text-decoration: underline;">...</span>
+            <span class="c-p" style="color: blue; text-decoration: underline;">Next</span>
+          </div>
+        </div>
+
+        <div class="row mt-3" style="border: 1px solid rgba(0,0,0,0.2); border-radius: 8px;">
+          <div class="col-12">
+            <div class="row mt-2">
+              <div class="col-6 d-inline-flex">
+                <div><strong>Result ID: &nbsp;</strong>405493</div>
+                <div class="ml-2"><strong>Paracetamol</strong></div>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <span *ngIf="!showAlertInfo" class="c-p" (click)="showAlertInfo = true; drugClickEvent()"
+                  style="color: blue; text-decoration: underline;">View</span>
+                <span *ngIf="showAlertInfo" class="c-p" (click)="showAlertInfo = false; drugClickEvent()"
+                  style="color: blue; text-decoration: underline;">Cancel</span>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-4 d-inline-flex">
+                <label>End Date</label>
+                <input type="date" class="form-control form-control-rounded" value="2020-01-31" disabled>
+              </div>
+
+              <div class="col-4 d-inline-flex">
+                <label>Due Date</label>
+                <input type="date" class="form-control form-control-rounded" value="2020-03-01" disabled>
+              </div>
+
+              <div class="col-4 d-inline-flex">
+                <label>Event PT</label>
+                <input type="text" class="form-control form-control-rounded" value="Product use complaint" disabled>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-4 d-inline-flex">
+                <label>Cummulative Cases</label>
+                <input type="text" class="form-control form-control-rounded" value="501" disabled>
+              </div>
+
+              <div class="col-4 d-inline-flex">
+                <label>Detected Cases</label>
+                <input type="text" class="form-control form-control-rounded" value="6" disabled>
+              </div>
+
+              <div class="col-4 d-inline-flex">
+                <label>Age Group</label>
+                <input type="text" class="form-control form-control-rounded" value="30-45 years" disabled>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-6 d-inline-flex">
+                <label>Disproportionality Non Interventional</label>
+                <input type="text" class="form-control form-control-rounded" value="0.23" disabled>
+              </div>
+              <div class="col-6 d-inline-flex">
+                <label>Disproportionality Spontaneous</label>
+                <input type="text" class="form-control form-control-rounded" value="1.6" disabled>
+              </div>
+            </div>
+
+            <div class="row mt-4 mb-2" *ngIf="showAlertInfo">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header"><strong>Alert Information</strong></div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <span>Paracetamol: &nbsp;Product use complaint</span>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-6 d-inline-flex">
+                        <label>Alert Start Date</label>
+                        <input class="ml-1 form-control form-control-rounded" type="date" disabled value="2020-01-04">
+                      </div>
+                      <div class="col-6 d-inline-flex">
+                        <label class="mt-1">Status</label>
+                        <input class="ml-1 form-control form-control-rounded" type="text" disabled
+                          value="Not processed">
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col-6 d-inline-flex">
+                        <label>Alert End Date</label>
+                        <input class="ml-1 form-control form-control-rounded" type="date" disabled value="2020-01-31">
+                      </div>
+                      <div class="col-6 d-inline-flex">
+                        <label class="mt-1">Alert Status</label>
+                        <input class="ml-1 form-control form-control-rounded" type="text" disabled value="Open">
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col-6 d-inline-flex">
+                        <label>Frequency</label>
+                        <input class="ml-1 form-control form-control-rounded" type="text" disabled value="4 weeks">
+                      </div>
+                      <div class="col-6 d-inline-flex">
+                        <label class="mt-1">Signal Triage</label>
+                        <input class="ml-1 form-control form-control-rounded" type="text" disabled value="Not done">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mt-3">
+                  <div class="card-header"><strong>Alert Details</strong></div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-6 d-inline-flex">
+                        <label>Disproportionality 025</label>
+                        <input class="ml-1 form-control form-control-rounded" type="text" disabled value="3.09">
+                      </div>
+                      <div class="col-6 d-inline-flex">
+                        <label>Disproportionality</label>
+                        <input class="ml-1 form-control form-control-rounded" type="text" disabled value="3.42">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6 d-inline-flex">
+                        <label class="badge badge-danger" style="font-size: 10px;">Spontaneous</label>
+                      </div>
+                      <div class="col-6 d-inline-flex">
+                        <label class="badge badge-danger" style="font-size: 10px;">Spontaneous</label>
+                      </div>
+                    </div>
+
+                    <div class="row mt-3">
+                      <div class="col-6 d-inline-flex">
+                        <label>Disproportionality 025</label>
+                        <input class="ml-1 form-control form-control-rounded" type="text" disabled value="0.02">
+                      </div>
+                      <div class="col-6 d-inline-flex">
+                        <label>Disproportionality</label>
+                        <input class="ml-1 form-control form-control-rounded" type="text" disabled value="0.33">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-6 d-inline-flex">
+                        <label class="badge badge-info" style="font-size: 10px;">Non Spontaneous</label>
+                      </div>
+                      <div class="col-6 d-inline-flex">
+                        <label class="badge badge-info" style="font-size: 10px;">Non Spontaneous</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

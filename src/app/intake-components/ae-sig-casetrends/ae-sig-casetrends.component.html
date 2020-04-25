@@ -1,0 +1,219 @@
+<div class="m-2"><strong>Result ID: &nbsp;</strong>405493</div>
+<div class="card m-2">
+  <div class="card-header">
+    <strong style="color: #663399; font-size: 14px;">CASE TRENDS</strong>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [xAxisLabelString]="'Total Cases'"
+                  [yAxisLabelString]="'Count of Cases'" [xAxisLabelShow]=true [yAxisLabelShow]=true
+                  [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'" [xAxisDataLabelColor]="'black'"
+                  [yAxisDataLabelColor]="'black'" [offsetGridLines]=false [headerLabelArray]="totalCasesLabels"
+                  [chartData]="totalCasesData" [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 mt-2">
+            <div class="card">
+              <div class="card-body">
+                <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [xAxisLabelString]="'Detected Cases'"
+                  [yAxisLabelString]="'Count of Cases'" [xAxisLabelShow]=true [yAxisLabelShow]=true
+                  [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'" [xAxisDataLabelColor]="'black'"
+                  [yAxisDataLabelColor]="'black'" [offsetGridLines]=false [headerLabelArray]="totalCasesLabels"
+                  [chartData]="detectedCasesData" [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 mt-2">
+            <div class="card">
+              <div class="card-body">
+                <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [xAxisLabelString]="'% of Detected Cases'"
+                  [yAxisLabelString]="'Count of Cases'" [xAxisLabelShow]=true [yAxisLabelShow]=true
+                  [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'" [xAxisDataLabelColor]="'black'"
+                  [yAxisDataLabelColor]="'black'" [offsetGridLines]=false [headerLabelArray]="totalCasesLabels"
+                  [chartData]="perDetectedCasesData" [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>Current alert</strong>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <strong>Total cases: &nbsp;</strong>932
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>Detected cases: &nbsp;</strong>6
+                  </div>
+                  <div class="col-6">
+                    <strong>Serious cases: &nbsp;</strong>0 (0%)
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>% Detected: &nbsp;</strong>0.64
+                  </div>
+                  <div class="col-6">
+                    <strong>Listed cases: &nbsp;</strong>0 (0%)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+                <strong>Previous alert</strong>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <strong>Total cases: &nbsp;</strong>548
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>Detected cases: &nbsp;</strong>0
+                  </div>
+                  <div class="col-6">
+                    <strong>Serious cases: &nbsp;</strong>0 (0%)
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>% Detected: &nbsp;</strong>0
+                  </div>
+                  <div class="col-6">
+                    <strong>Listed cases: &nbsp;</strong>0 (0%)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>Alerts over last 12 weeks</strong>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <strong>Total cases: &nbsp;</strong>2189
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>Detected cases: &nbsp;</strong>7
+                  </div>
+                  <div class="col-6">
+                    <strong>Serious cases: &nbsp;</strong>0 (0%)
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>% Detected: &nbsp;</strong>0.32
+                  </div>
+                  <div class="col-6">
+                    <strong>Listed cases: &nbsp;</strong>0 (0%)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 mt-3">
+            <div class="card">
+              <div class="card-header">
+                <strong>Alerts over last year</strong>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <strong>Total cases: &nbsp;</strong>7712
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>Detected cases: &nbsp;</strong>21
+                  </div>
+                  <div class="col-6">
+                    <strong>Serious cases: &nbsp;</strong>0 (0%)
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>% Detected: &nbsp;</strong>0.27
+                  </div>
+                  <div class="col-6">
+                    <strong>Listed cases: &nbsp;</strong>0 (0%)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>Cummulative alerts over lifetime</strong>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <strong>Total cases: &nbsp;</strong>148814
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>Detected cases: &nbsp;</strong>511
+                  </div>
+                  <div class="col-6">
+                    <strong>Serious cases: &nbsp;</strong>4 (0.78%)
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <strong>% Detected: &nbsp;</strong>0.34
+                  </div>
+                  <div class="col-6">
+                    <strong>Listed cases: &nbsp;</strong>130 (25.44%)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

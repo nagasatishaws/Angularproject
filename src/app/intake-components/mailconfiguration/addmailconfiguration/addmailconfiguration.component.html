@@ -1,0 +1,158 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 26 september 19
+*/
+-->
+
+
+<div class="modal-header">
+  <h4 class="modal-title">Configure Mail Server</h4>
+</div>
+<div class="modal-body">
+  <form autocomplete="off" [formGroup]="form">
+    <div class="row">
+      <div class="form-group col-12">
+        <label>Access Type *</label>
+        <mat-select placeholder=" Select Access Type" class="form-control form-control-rounded"
+          formControlName="accessType" (selectionChange)="changeAccess()" [(ngModel)]="maildata.accessType">
+          <mat-option value="send">
+            Send
+          </mat-option>
+          <mat-option value="read">
+            Read
+          </mat-option>
+          <mat-option value="send/read">
+            Send/Read
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6">
+        <label>Mail Box Name *</label>
+        <input placeholder="Enter Mail Box Name" class="form-control form-control-rounded" type="text"
+          formControlName="mailboxName" [(ngModel)]="maildata.mailboxName" />
+      </div>
+      <div class="form-group col-6">
+        <label>Username *</label>
+        <input placeholder="Enter Username" class="form-control form-control-rounded" type="text"
+          formControlName="mailServerUserName" [(ngModel)]="maildata.mailServerUserName" />
+      </div>
+      <div class="form-group col-6">
+        <label>Password *</label>
+        <input placeholder="Enter Password" class="form-control form-control-rounded"
+          formControlName="mailServerPassword" type="password" [(ngModel)]="maildata.mailServerPassword" />
+      </div>
+      <div class="form-group col-6">
+        <label>Server Domain *</label>
+        <input placeholder="Enter Connection" class="form-control form-control-rounded"
+          formControlName="mailServerDomain" type="text" [(ngModel)]="maildata.mailServerDomain" />
+      </div>
+      <div class="form-group col-6">
+        <label>Server Type *</label>
+        <mat-select placeholder=" Select Server Type" class="form-control form-control-rounded"
+          formControlName="mailServerProtocol" [(ngModel)]="maildata.mailServerProtocol">
+          <mat-option *ngIf="sendflag && !recieveflag" value="smtp">
+            SMTP
+          </mat-option>
+          <mat-option *ngIf="recieveflag && !sendflag" value="imap">
+            IMAP
+          </mat-option>
+          <mat-option *ngIf="recieveflag && !sendflag" value="pop">
+            POP
+          </mat-option>
+          <mat-option *ngIf="sendflag && recieveflag" value="smtp/imap">
+            SMTP/IMAP
+          </mat-option>
+          <mat-option *ngIf="sendflag && recieveflag" value="smtp/pop">
+            SMTP/POP
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6" *ngIf="sendflag && bothflag">
+        <label>Send Port</label>
+        <input placeholder="Enter Port" class="form-control form-control-rounded" type="number"
+          formControlName="sendPort" [(ngModel)]="maildata.sendPort" NumericInput />
+      </div>
+      <div class="form-group col-6" *ngIf="recieveflag && bothflag">
+        <label>Read Port</label>
+        <input placeholder="Enter Port" class="form-control form-control-rounded" type="number"
+          formControlName="readPort" [(ngModel)]="maildata.readPort" NumericInput />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-6" *ngIf="recieveflag && bothflag">
+        <label>Interval</label>
+        <mat-select placeholder=" Select Interval" (selectionChange)="intervalchange()"
+          class="form-control form-control-rounded" formControlName="interval" [(ngModel)]="maildata.interval">
+          <mat-option value="true">
+            True
+          </mat-option>
+          <mat-option value="false">
+            False
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6" *ngIf="recieveflag && bothflag">
+        <label>Repeat</label>
+        <mat-select placeholder=" Select Repeat" class="form-control form-control-rounded" formControlName="recurrence"
+          [(ngModel)]="maildata.recurrence">
+          <mat-option value="true">
+            True
+          </mat-option>
+          <mat-option value="false">
+            False
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6" *ngIf="recieveflag && bothflag && hourflag">
+        <label>Hours</label>
+        <!-- <input placeholder="Enter Hour"
+               class="form-control form-control-rounded"
+               type="number"
+               formControlName="hour"
+               [(ngModel)]="maildata.hour" /> -->
+        <mat-select placeholder=" Select Hour" class="form-control form-control-rounded" formControlName="hour"
+          [(ngModel)]="maildata.hour">
+          <mat-option *ngFor="let hour of hours" value="{{hour}}">
+            {{hour}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6" *ngIf="recieveflag && bothflag && hourflag">
+        <label>Minutes</label>
+        <!-- <input placeholder="Enter Minutes"
+               class="form-control form-control-rounded"
+               type="number"
+               formControlName="minute"
+               [(ngModel)]="maildata.minute" /> -->
+        <mat-select placeholder=" Select Minutes" class="form-control form-control-rounded" formControlName="minute"
+          [(ngModel)]="maildata.minute">
+          <mat-option *ngFor="let minute of minutes" value="{{minute}}">
+            {{minute}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6" *ngIf="recieveflag && bothflag && timeflag">
+        <label>Time</label>
+        <input placeholder="Enter Time" class="form-control form-control-rounded" type="time" formControlName="time"
+          [(ngModel)]="maildata.time" />
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" [disabled]="!form.valid"
+    (click)="onFormSubmit()" *ngIf="buttonFlag">
+    Save
+  </button>
+
+  <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" [disabled]="!form.valid"
+    (click)="onFormUpdate()" *ngIf="!buttonFlag">
+    Update
+  </button>
+  <button type="button" class="btn btn-outline-secondary btn-rounded" [mat-dialog-close]="true">
+    Cancel
+  </button>
+</div>

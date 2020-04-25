@@ -1,0 +1,159 @@
+<div class="row m-2">
+  <div class="col-12">
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="form-group row">
+          <div class="col-6">
+            <label>Patient Identifier</label>
+            <input class="form-control form-control-rounded" type="text" placeholder="Patient Identifier"
+              [(ngModel)]="data.initials">
+          </div>
+
+          <div class="col-6">
+            <label>Subject ID</label>
+            <input class="form-control form-control-rounded" type="text" placeholder="Subject ID"
+              [(ngModel)]="data.subjectId">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="form-group row">
+          <div class="col-6">
+            <label>Country</label>
+            <input class="form-control form-control-rounded" type="text" placeholder="Country"
+              [(ngModel)]="data.country">
+          </div>
+
+          <div class="col-6">
+            <label>Date of Birth</label>
+            <input class="form-control form-control-rounded" type="date" placeholder="Date of Birth"
+              [(ngModel)]="data.dob">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="form-group row">
+          <div class="col-6">
+            <label>Age</label>
+            <input class="form-control form-control-rounded" type="number" placeholder="Age" [(ngModel)]="data.age"
+              NumericInput>
+          </div>
+
+          <div class="col-6">
+            <label>Sex</label>
+            <select class="form-control form-control-rounded" [(ngModel)]="data.sex">
+              <option value="">-- Please Select --</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Unknown">Unknown</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="data.sex === 'Female'">
+      <div class="col-6 my-auto">
+        <label>Pregnant</label>
+        <br>
+        <!-- <div class="row">
+          <div class="col"> -->
+        <input class="mx-1" type="radio" name="pregnant" [(ngModel)]="data.pregnant" [value]="true"> True
+        <input class="mx-1 ml-2" type="radio" name="pregnant" [(ngModel)]="data.pregnant" [value]="false"> False
+        <br>
+        <!-- </div>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="row my-2" *ngIf="data.pregnant">
+      <div class="col-12">
+        <div class="form-group row">
+          <div class="col-3">
+            <label>Gestation Period</label>
+            <input class="form-control form-control-rounded" type="number" placeholder="Gestation Period"
+              [(ngModel)]="data.pregnancy.gestationPeriod" NumericInput>
+          </div>
+
+          <div class="col-3">
+            <label>Gestation Period Unit</label>
+            <select class="form-control form-control-rounded" [(ngModel)]="data.pregnancy.gestationPeriodUnits">
+              <option value="">-- Please Select --</option>
+              <option value="days">Days</option>
+              <option value="weeks">Weeks</option>
+            </select>
+          </div>
+
+          <div class="col-3">
+            <label>Number of Fetus</label>
+            <input class="form-control form-control-rounded" type="number" placeholder="Number of Fetus"
+              [(ngModel)]="data.pregnancy.numberOfFetus" NumericInput>
+          </div>
+
+          <div class="col-3">
+            <label>Prospective/ Retrospective</label>
+            <div class="row">
+              <div class="col">
+                <input class="mx-1" type="radio" name="prospectiveRetrospective"
+                  [(ngModel)]="data.pregnancy.prospectiveRetrospective" value="prospective"> Prospective <br>
+                <input class="mx-1" type="radio" name="prospectiveRetrospective"
+                  [(ngModel)]="data.pregnancy.prospectiveRetrospective" value="retrospective"> Retrospective <br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-12">
+            <label>Pregnancy Details</label>
+            <input class="form-control form-control-rounded" [(ngModel)]="data.pregnancy.pregnancyDetails" type="text"
+              placeholder="Pregnancy Details">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="form-group row">
+          <div class="col-3">
+            <label>Weight</label>
+            <input class="form-control form-control-rounded" type="number" placeholder="Weight"
+              [(ngModel)]="data.weight" NumericInput>
+          </div>
+
+          <div class="col-3">
+            <label>Weight Unit</label>
+            <select class="form-control form-control-rounded" [(ngModel)]="data.weightUnit">
+              <option value="">-- Please Select --</option>
+              <option value="kgs">kgs</option>
+              <option value="lbs">lbs</option>
+            </select>
+          </div>
+
+          <div class="col-3">
+            <label>Height</label>
+            <input class="form-control form-control-rounded" type="number" placeholder="Height"
+              [(ngModel)]="data.height" NumericInput>
+          </div>
+
+          <div class="col-3">
+            <label>Height Unit</label>
+            <select class="form-control form-control-rounded" [(ngModel)]="data.heightUnit">
+              <option value="">-- Please Select --</option>
+              <option value="ft">ft</option>
+              <option value="in">in</option>
+              <option value="cm">cm</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="row m-2">
+  <div class="col-12">
+    <h5 class="mt-1">Relevant History List</h5>
+    <hr class="mt-2 mb-3">
+    <div class="row">
+      <div class="col-12">
+        <table class="table" style="border: 1px solid #ddd; table-layout: fixed;">
+          <thead>
+            <tr style="text-align: center;">
+              <th scope="col" *ngFor="let header of labDetailsHeaders">{{header}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data; let i = index" style="text-align: center;">
+              <td colspan="1" *ngFor="let key of labDetailsKeys;">{{row[key]}}</td>
+              <td>
+                <div class="row">
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-edit c-p" (click)="editRowClick(i)"></span>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-trash text-danger c-p" (click)="deleteRowClick(i)"></span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <form [formGroup]="formGroup">
+      <div class="form-group row mt-2">
+        <div class="col-4">
+          <label>From Date</label>
+          <input class="form-control form-control-rounded" type="date" placeholder="From Date"
+            formControlName="fromDate">
+        </div>
+
+        <div class="col-4">
+          <label>To Date</label>
+          <input class="form-control form-control-rounded" type="date" placeholder="To Date" formControlName="toDate">
+        </div>
+
+        <div class="col-4">
+          <label>Condition Type</label>
+          <input class="form-control form-control-rounded" type="text" placeholder="Condition Type"
+            formControlName="conditionType">
+        </div>
+      </div>
+
+      <div class="form-group row mt-2">
+        <div class="col-12">
+          <label>Description</label>
+          <!-- <input class="form-control form-control-rounded" type="text" placeholder="Description"> -->
+          <textarea class="form-control form-control-rounded" placeholder="Description" rows="5"
+            formControlName="description"></textarea>
+        </div>
+      </div>
+    </form>
+
+    <div class="form-group row mt-1">
+      <div class="col-12 d-flex justify-content-end">
+        <button *ngIf="!editFlag" class="btn btn-rounded btn-primary mr-2" (click)="addRow()">Add</button>
+        <button *ngIf="editFlag" class="btn btn-rounded btn-primary mr-2" (click)="updateRow()">Update</button>
+        <button class="btn btn-rounded btn-secondary" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

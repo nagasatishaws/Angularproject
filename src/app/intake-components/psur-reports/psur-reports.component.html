@@ -1,0 +1,422 @@
+<div class="row">
+  <div class="col-12">
+    <button class="btn btn-rounded" routerLink="/mainlayout/dashboard">
+      <span class="fas fa-arrow-left"></span>
+    </button>
+  </div>
+</div>
+
+<div class="card my-2 mb-4">
+  <div class="card-header">
+    <h5>Worldwide Marketing Authorization Status</h5>
+  </div>
+  <div class="card-body">
+    <div class="row form-group justify-content-center">
+      <div class="col-4 my-auto">
+        <label><strong>Drug Name</strong></label>
+      </div>
+      <div class="col-8 d-inline-flex">
+        <input class="form-control form-control-rounded" type="text" value="Silodosin" disabled>
+      </div>
+    </div>
+
+    <div class="row form-group justify-content-center">
+      <div class="col-4 my-auto">
+        <label><strong>Date of first authorization worldwide</strong></label>
+      </div>
+      <div class="col-8 d-inline-flex">
+        <input class="form-control form-control-rounded" type="date" [(ngModel)]="dateOfAuth" disabled>
+      </div>
+    </div>
+
+    <div class="row form-group justify-content-center mt-2">
+      <div class="col-4 my-auto">
+        <label><strong>Indications</strong></label>
+      </div>
+      <div class="col-8 d-inline-flex">
+        <textarea class="form-control form-control-rounded" rows="5" [(ngModel)]="indications" disabled></textarea>
+      </div>
+    </div>
+
+    <div class="row form-group justify-content-center mt-2">
+      <div class="col-4 my-auto">
+        <label><strong>Authorized doses and Locations</strong></label>
+      </div>
+      <div class="col-8 d-inline-flex">
+        <textarea class="form-control form-control-rounded" rows="5" [(ngModel)]="authDosesAndLoc" disabled></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card my-2 mb-4">
+  <div class="card-header">
+    <h5>Estimated Exposure and Use Patterns</h5>
+  </div>
+  <div class="card-body">
+
+    <div class="card">
+      <div class="card-header">
+        <strong>Cummulative Subject Exposure in Clinical Trials</strong>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6 d-flex justify-content-center">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" style="background-color: #6c5ce7;">
+              <div class="card-body text-center">
+                <!-- <i class="i-Checkout-Basket"></i> -->
+                <div class="ml-auto mr-auto" style="color: white;">
+                  <p class="mt-2 mb-0 text-16">Number of subjects ongoing Clinical Trial</p>
+                  <p class="text-24 line-height-1 mb-2">31</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 d-flex justify-content-center">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" style="background-color: #6c5ce7;">
+              <div class="card-body text-center">
+                <!-- <i class="i-Checkout-Basket"></i> -->
+                <div class="ml-auto mr-auto" style="color: white;">
+                  <p class="mt-2 mb-0 text-16">Number of subjects completed Clinical Trial</p>
+                  <p class="text-24 line-height-1 mb-2">47</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-6">
+            <div class="card">
+              <div class="card-header">
+                <strong>By Age</strong>
+              </div>
+
+              <div class="card-body">
+                <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                  [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+                  [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+                  [headerLabelArray]="byAgeOngoingLabels" [chartData]="byAgeOngoingData" [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="card">
+              <div class="card-header">
+                <strong>By Sex</strong>
+              </div>
+
+              <div class="card-body">
+                <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                  [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+                  [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+                  [headerLabelArray]="bySexOngoingLabels" [chartData]="bySexOngoingData" [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4 d-flex justify-content-center">
+          <div class="col-8">
+            <div class="card">
+              <div class="card-header">
+                <strong>By Ethnicity</strong>
+              </div>
+
+              <div class="card-body">
+                <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                  [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+                  [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+                  [headerLabelArray]="byEthnicityOngoingLabels" [chartData]="byEthnicityOngoingData"
+                  [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="card-header">
+        <strong>Doses in Clinical Trials Sites</strong>
+      </div>
+
+      <div class="card-body">
+        <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true [maintainAspectRatio]=true
+          [legendDisplay]=true [legendLabelColor]="'black'" [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true
+          [yAxisLabelString]="'mg(milligrams)'" [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'"
+          [yAxisLabelColor]="'black'" [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'"
+          [offsetGridLines]=false [headerLabelArray]="dosesInCTLabels" [chartData]="dosesInCTData"
+          [refreshChart]="refreshChart">
+        </app-chart-js>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="card mt-4">
+          <div class="card-header">
+            <strong>Route of Administration</strong>
+          </div>
+
+          <div class="card-body">
+            <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+              [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'" [xAxisGridLinesDisplay]=true
+              [yAxisGridLinesDisplay]=true [xAxisLabelShow]=true [yAxisLabelShow]=true
+              [yAxisLabelString]="'Count of Cases'" [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+              [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+              [headerLabelArray]="routeAdminLabels" [chartData]="routeAdminData" [refreshChart]="refreshChart">
+            </app-chart-js>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card mt-4">
+          <div class="card-header">
+            <strong>Patient Population</strong>
+          </div>
+
+          <div class="card-body">
+            <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+              [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'" [xAxisGridLinesDisplay]=true
+              [yAxisGridLinesDisplay]=true [xAxisLabelShow]=true [yAxisLabelShow]=true
+              [yAxisLabelString]="'Count of Cases'" [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+              [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+              [headerLabelArray]="patientPopulationLabels" [chartData]="patientPopulationData"
+              [refreshChart]="refreshChart">
+            </app-chart-js>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="card mt-4">
+          <div class="card-header">
+            <strong>Special Population</strong>
+          </div>
+
+          <div class="card-body">
+            <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+              [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'" [xAxisGridLinesDisplay]=true
+              [yAxisGridLinesDisplay]=true [xAxisLabelShow]=true [yAxisLabelShow]=true
+              [yAxisLabelString]="'Count of Cases'" [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+              [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+              [headerLabelArray]="specialPopulationLabels" [chartData]="specialPopulationData"
+              [refreshChart]="refreshChart">
+            </app-chart-js>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card mt-4">
+          <div class="card-header">
+            <strong>Indication Vs Exposure</strong>
+          </div>
+
+          <div class="card-body">
+            <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+              [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'" [xAxisGridLinesDisplay]=true
+              [yAxisGridLinesDisplay]=true [xAxisLabelShow]=true [yAxisLabelShow]=true
+              [yAxisLabelString]="'mg/day(milligrams per day)'" [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+              [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+              [headerLabelArray]="indiExpoLabels" [chartData]="indiExpoData" [refreshChart]="refreshChart">
+            </app-chart-js>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="card-header">
+        <strong>Cummulative and Interval Patient Exposure From Marketing Experience</strong>
+      </div>
+
+      <div class="card-body">
+        <strong>Post Authorization Exposure</strong>
+
+        <div class="row mt-2">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><strong>By Age</strong></div>
+              <div class="card-body">
+                <app-chart-js [stacked]="'true'" [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                  [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+                  [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+                  [headerLabelArray]="paeByAgeLabels" [chartData]="paeByAgeData" [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><strong>By Sex</strong></div>
+              <div class="card-body">
+                <app-chart-js [stacked]="'true'" [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                  [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+                  [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+                  [headerLabelArray]="paeBySexLabels" [chartData]="paeBySexData" [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><strong>By Dose</strong></div>
+              <div class="card-body">
+                <app-chart-js [stacked]="'true'" [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                  [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+                  [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+                  [headerLabelArray]="paeByDoseLabels" [chartData]="paeByDoseData" [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><strong>By Indication</strong></div>
+              <div class="card-body">
+                <app-chart-js [stacked]="'true'" [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                  [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+                  [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+                  [headerLabelArray]="paeByIndicationLabels" [chartData]="paeByIndicationData"
+                  [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><strong>By Formulation</strong></div>
+              <div class="card-body">
+                <app-chart-js [stacked]="'true'" [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                  [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                  [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                  [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'" [yAxisLabelColor]="'black'"
+                  [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'" [offsetGridLines]=false
+                  [headerLabelArray]="paeByFormulationLabels" [chartData]="paeByFormulationData"
+                  [refreshChart]="refreshChart">
+                </app-chart-js>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>Summary of Significant Finding</strong>
+              </div>
+              <div class="card-body">
+                <ngx-datatable
+                  style="padding: inherit; box-shadow: none; border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 8px;"
+                  class="material" [rows]="significantFindings" [headerHeight]="50" [footerHeight]="50" [rowHeight]="40"
+                  [columnMode]="'force'" [scrollbarH]="true">
+
+                  <ngx-datatable-column prop="studyId" [width]="'100'">
+                    <ng-template ngx-datatable-header-template let-sort="sortFn">
+                      <span class="c-p" (click)="sort()">Study ID</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column prop="studyTitle" [width]="'400'">
+                    <ng-template ngx-datatable-header-template let-sort="sortFn">
+                      <span class="c-p" (click)="sort()">Study Title</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column prop="studyType" [width]="'150'">
+                    <ng-template ngx-datatable-header-template let-sort="sortFn">
+                      <span class="c-p" (click)="sort()">Study Type</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column prop="location" [width]="'250'">
+                    <ng-template ngx-datatable-header-template let-sort="sortFn">
+                      <span class="c-p" (click)="sort()">Location</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column prop="populationStudied">
+                    <ng-template ngx-datatable-header-template let-sort="sortFn">
+                      <span class="c-p" (click)="sort()">Population Studied</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column prop="studyStart">
+                    <ng-template ngx-datatable-header-template let-sort="sortFn">
+                      <span class="c-p" (click)="sort()">Study Start</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <ngx-datatable-column prop="status">
+                    <ng-template ngx-datatable-header-template let-sort="sortFn">
+                      <span class="c-p" (click)="sort()">Status</span>
+                    </ng-template>
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

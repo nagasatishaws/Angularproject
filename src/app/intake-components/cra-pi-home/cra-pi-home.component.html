@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-4">
+    <h4 class="text-left">Site Group:</h4>
+  </div>
+  <div class="col-8">
+    <div class="row">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" *ngFor="let country of siteGroups; let i = index" class="btn btn-secondary"
+        (click)="showSites(i)" [ngClass]="[i == isselected ? 'button-active' : 'button-standard']">{{ country.name }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+<br />
+
+<div class="row">
+  <div class="col-12">
+    <h4 class="text-left">Available Sites:</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <ngx-datatable class="material" [rows]="filteredItems" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="40" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+      [rowHeight]="40" rowHeight="auto" (activate)="onRowClick($event)" [messages]="nodata">
+
+      <ngx-datatable-column prop="siteId">
+        <ng-template ngx-datatable-header-template let-sort="sortFn">
+          <span class="c-p" (click)="sort()">Site Numbers</span>
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <span class="c-p" style="color: #455c9c;" routerLink="/mainlayout/study/{{ row.id }}" (click)="storeData(row)"
+          data-toggle="tooltip" data-placement="top" title="{{row.siteId}}">{{ row.siteId }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column prop="oid">
+        <ng-template ngx-datatable-header-template let-sort="sortFn">
+          <span class="c-p" (click)="sort()">OID</span>
+        </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column prop="name">
+        <ng-template ngx-datatable-header-template let-sort="sortFn">
+          <span class="c-p" (click)="sort()">Site Name</span>
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>{{row.name}}</ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column prop="nameOfThePrincipalInvestigator">
+        <ng-template ngx-datatable-header-template let-sort="sortFn">
+          <span class="c-p" (click)="sort()">Principal Investigator</span>
+        </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>{{ value }}</ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column prop="locationType">
+        <ng-template ngx-datatable-header-template let-sort="sortFn">
+          <span class="c-p" (click)="sort()">Site Type</span>
+        </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <span data-toggle="tooltip" data-placement="top" title="{{value}}">{{ value }}</span>
+        </ng-template>
+      </ngx-datatable-column>
+  
+      <!-- <ngx-datatable-column prop="siteId">
+        <ng-template ngx-datatable-header-template let-sort="sortFn">
+          <span class="c-p" (click)="sort()">Site Group</span>
+        </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>{{ siteGroupName }}</ng-template>
+      </ngx-datatable-column> -->
+
+      <ngx-datatable-column prop="siteStatus">
+        <ng-template ngx-datatable-header-template let-sort="sortFn">
+          <span class="c-p" (click)="sort()">Site Status</span>
+        </ng-template>
+        <ng-template let-value="value" ngx-datatable-cell-template>ACTIVE</ng-template>
+      </ngx-datatable-column>
+        
+    </ngx-datatable>
+  </div>
+</div>

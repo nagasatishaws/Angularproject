@@ -1,0 +1,49 @@
+<mat-drawer-container class="example-container border" style="height: 500px; border-radius: 8px;">
+  <mat-drawer mode="side" disableClose="true" opened style="width: 150px">
+    <ul class="list-group">
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 1 }" (click)="aeSigAlerts(); stepper = 1">
+        Alerts
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 2, disabled: drugSelected }"
+        (click)="aeSigCasetrends(); stepper = 2">
+        Case Trends
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 3, disabled: drugSelected }"
+        (click)="aeSigActionCatalogs(); stepper = 3">
+        Action Catalog
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 4, disabled: drugSelected }"
+        (click)="aeSigNarrative(); stepper = 4">
+        Narrative
+      </li>
+    </ul>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div *ngIf="aeSigAlertsFlag" class="row" style="max-height: 500px; overflow-y: scroll;">
+      <div class="col-12">
+        <app-ae-sig-alets (drugClick)="assignDrugSelect($event)"></app-ae-sig-alets>
+      </div>
+    </div>
+    <div *ngIf="aeSigCasetrendsFlag" class="row" style="max-height: 500px; overflow-y: scroll;">
+      <div class="col-12">
+        <app-ae-sig-casetrends></app-ae-sig-casetrends>
+      </div>
+    </div>
+    <div *ngIf="aeSigActionCatalogsFlag" class="row" style="max-height: 500px; overflow-y: scroll;">
+      <div class="col-12">
+        <app-ae-sig-act-catalog></app-ae-sig-act-catalog>
+      </div>
+    </div>
+    <div *ngIf="aeSigNarrativeFlag" class="row" style="max-height: 500px; overflow-y: scroll;">
+      <div class="col-12">
+        <app-ae-sig-narratives></app-ae-sig-narratives>
+      </div>
+    </div>
+    <!-- <app-patient *ngIf="aeSigAlertsFlag"></app-patient>
+      <app-event *ngIf="aeSigCasetrendsFlag"></app-event>
+      <app-product *ngIf="aeSigActionCatalogsFlag"></app-product>
+      <div *ngIf="aeSigNarrativeFlag" style="height: 350px; overflow-y: scroll;">
+        <app-narrative></app-narrative>
+      </div> -->
+  </mat-drawer-content>
+</mat-drawer-container>

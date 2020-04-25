@@ -1,0 +1,441 @@
+<!--
+  /**
+* Author - Lohit
+* Version - 1.1
+* Create date - 19 oct 2019
+*/
+-->
+
+
+<div class="row">
+  <div class="col-4">
+    <button *ngIf="!caseTypeIn" class="btn" routerLink="/mainlayout/reviewcase">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <button *ngIf="caseTypeIn" class="btn" routerLink="/mainlayout/createcase">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+  <div class="col-4 ">
+    <div *ngIf="!caseTypeIn" class="d-flex justify-content-center">
+      <span style="font-size: 12px;" class="mt-3">Status:&nbsp; </span>
+      <span style="font-size: 12px;" [className]="
+          viewCase?.status?.name === 'delete'
+            ? 'badge badge-danger mt-3 '
+            : 'badge badge-primary mt-3 '">{{ viewCase?.status?.name }}</span>
+      <!-- <button
+        type="button"
+        [className]="
+          viewCase.status === 'rejected'
+            ? 'btn btn-rounded btn-danger btn-xs'
+            : 'btn btn-rounded btn-primary btn-xs'
+        "
+      >
+        {{ viewCase.status }}
+      </button> -->
+    </div>
+  </div>
+  <div class="col-4 d-flex justify-content-end">
+    <div class="my-auto mr-2">
+      <!--  This is a backup of old assign to me
+        <button *ngIf="!caseTypeIn" class="btn btn-rounded btn-primary" [disabled]="
+        assignFlag$ ||
+        viewCase.status === 'approved' ||
+        viewCase.status === 'rejected' ||
+        !create ||
+        !update
+      " (click)="assignToMe()">
+        Assign to
+        <span *ngIf="assignFlag$" style="color: white;">{{ viewCase.assignedToUser.userName }}</span>
+        <span *ngIf="!assignFlag$">me</span>
+      </button> -->
+      <button *ngIf="!caseTypeIn" class="btn btn-rounded btn-primary" [disabled]="disableAssignFlag "
+        (click)="assignToMe()">
+        <span *ngIf="disableAssignFlag" style="color: white;">Assigned to {{ viewCase.assignedToUser.userName }}</span>
+        <span *ngIf="!disableAssignFlag" style="color: white;">Assign to me</span>
+      </button>
+    </div>
+    <button *ngIf="!caseTypeIn && showActionFlag" mat-button [matMenuTriggerFor]="menu" style="outline: none;">
+      Action&nbsp;<mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <app-action-menu [actionContents]="actionMenu" (selectedAction)="selectActionContent($event)">
+      </app-action-menu>
+    </mat-menu>
+    <!-- <button type="button" class="btn btn-rounded btn-primary mr-1" (click)="rejectCase()" [disabled]="
+        viewCase.status === 'approved' ||
+        viewCase.status === 'rejected' ||
+        !create ||
+        !update
+      ">
+      Reject
+    </button>
+
+    <button type="button" class="btn btn-rounded btn-primary mr-1" (click)="approveCase()" [disabled]="
+        viewCase.status === 'approved' ||
+        viewCase.status === 'rejected' ||
+        !create ||
+        !update
+      ">
+      Accept
+    </button> -->
+
+  </div>
+</div>
+<mat-toolbar class="mt-2 border pt-2 pb-2" style="height: auto !important;">
+  <!-- <div class="d-flex justify-content-end">
+    <span class="badge badge-primary">{{ viewCase.status }}</span>
+  </div> -->
+  <div class="row" *ngIf="nerFlag" style="width: 100%;">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-4 f-12  font-weight-normal d-inline-flex" title="{{ routepath.id }}">
+          <span>Case ID:&nbsp;{{ routepath.id }}</span>
+        </div>
+        <div class="col-4 f-12  font-weight-normal d-inline-flex">
+          <span>Date Received:&nbsp;</span>
+          <input class="form-control form-control-rounded" type="date"
+            [ngModel]="formatDateToString(nerData.header.dateReceived)"
+            (ngModelChange)="formateStringToDate($event, 'header', 'dateReceived')">
+        </div>
+        <div class="col-4 f-12  font-weight-normal d-inline-flex" title="{{ nerData.header.dateOfThisReport }}">
+          <span>Date of this Report:&nbsp;</span>
+          <input class="form-control form-control-rounded" type="date"
+            [ngModel]="formatDateToString(nerData.header.dateOfThisReport)"
+            (ngModelChange)="formateStringToDate($event, 'header', 'dateOfThisReport')">
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-4 f-12  font-weight-normal d-inline-flex">
+          <span>Report Type:&nbsp;{{nerData.header.reportType}}</span>
+          <!-- <mat-select class="form-control form-control-rounded" placeholder="Select Report Type"
+            [(ngModel)]="nerData.header.reportType">
+            <mat-option value="Initial">
+              Initial
+            </mat-option>
+            <mat-option value="followup">
+              Follow-up
+            </mat-option>
+          </mat-select> -->
+        </div>
+        <div class="col-4 f-12  font-weight-normal d-inline-flex" title="{{ nerData.header.referenceCaseId }}">
+          <span>Reference Case ID:&nbsp;{{nerData.header.referenceCaseId}}</span>
+          <!-- <input class="form-control form-control-rounded" type="text" placeholder="Reference Case ID"
+            [(ngModel)]="nerData.header.referenceCaseId"> -->
+        </div>
+        <div class="col-4 f-12  font-weight-normal d-inline-flex" title="{{ nerData.header.referenceCaseDate }}">
+          <span>Reference Case Date:&nbsp;</span>
+          <input class="form-control form-control-rounded" type="date" [(ngModel)]="nerData.header.referenceCaseDate">
+        </div>
+      </div>
+
+
+
+
+      <div class="row mt-2">
+        <div class="col-8">
+          <div class="row mt-2">
+            <div class="col-6 f-12 font-weight-normal d-inline-flex">
+              <span>Report Source:&nbsp;</span>
+              <mat-select placeholder="Select Report Source" class="form-control form-control-rounded"
+                [(ngModel)]="nerData.header.reportSource">
+                <mat-option value="Spontaneous">
+                  Spontaneous
+                </mat-option>
+                <mat-option value="Literature">
+                  Literature
+                </mat-option>
+                <mat-option value="Legal">
+                  Legal
+                </mat-option>
+                <mat-option value="PatientSupportProgram">
+                  Patient Support Program
+                </mat-option>
+                <mat-option value="ClinicalTrials">
+                  Clinical Trials
+                </mat-option>
+              </mat-select>
+            </div>
+            <div class="col-6 f-12  font-weight-normal d-inline-flex" title="{{ nerData.header.partnerRef }}">
+              <span>Partner Ref:&nbsp;</span>
+              <input class="form-control form-control-rounded" type="text" placeholder="Partner Ref"
+                [(ngModel)]="nerData.header.partnerRef">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div *ngIf="!caseTypeIn" class="col-6 f-12  font-weight-normal d-inline-flex">
+              <span>Priority:&nbsp;</span>
+              <select class="form-control form-control-rounded" placeholder="Please select"
+                [(ngModel)]="viewCase.priority">
+                <option value="">-- Please Select --</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+            <div *ngIf="caseTypeIn" class="col-6 f-12  font-weight-normal d-inline-flex">
+              <span>Priority:&nbsp;</span>
+              <select class="form-control form-control-rounded" placeholder="Please select" [(ngModel)]="priority">
+                <option value="">-- Please Select --</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+
+            <div *ngIf="!caseTypeIn" class="col-3 f-12  font-weight-normal d-inline-flex pr-0">
+              <span>Deadline:&nbsp;</span>
+              <input class="form-control form-control-rounded" type="number" [(ngModel)]="viewCase.deadline"
+                placeholder="Deadline" NumericInput>
+            </div>
+            <div *ngIf="caseTypeIn" class="col-3 f-12  font-weight-normal d-inline-flex pr-0">
+              <span>Deadline:&nbsp;</span>
+              <input class="form-control form-control-rounded" type="number" [(ngModel)]="deadline"
+                placeholder="Deadline" NumericInput>
+            </div>
+
+            <div *ngIf="!caseTypeIn" class="col-3 f-12  font-weight-normal d-inline-flex pl-1">
+              <!-- <span>Deadline Units:&nbsp;</span> -->
+              <select disabled class="form-control form-control-rounded" placeholder="Deadline Units"
+                [(ngModel)]="viewCase.deadlineUnits">
+                <option value="">-- Please Select --</option>
+                <option value="days">Days</option>
+              </select>
+            </div>
+            <div *ngIf="caseTypeIn" class="col-3 f-12  font-weight-normal d-inline-flex pl-1">
+              <!-- <span>Deadline Units:&nbsp;</span> -->
+              <select disabled class="form-control form-control-rounded" placeholder="Deadline Units"
+                [(ngModel)]="deadlineUnits">
+                <option value="">-- Please Select --</option>
+                <option value="days">Days</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="row" style="height: 100%;">
+            <div *ngIf="!caseTypeIn" class="col-12 f-12  font-weight-normal">
+              <label class="mb-0">Case Description:&nbsp;</label>
+              <textarea style="height: 48px;" class="form-control form-control-rounded"
+                [(ngModel)]="viewCase.eventDescription"></textarea>
+            </div>
+
+            <div *ngIf="caseTypeIn" class="col-12 f-12  font-weight-normal">
+              <label class="mb-0">Case Description:&nbsp;</label>
+              <textarea style="height: 48px;" class="form-control form-control-rounded"
+                [(ngModel)]="eventDescription"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-3 f-12 elipsis font-weight-normal">
+      <div class="row ml-2">
+        <span>Regulatory Ref No:&nbsp;</span>
+        <input class="w-50 form-control form-control-rounded" type="text"
+          [(ngModel)]="nerData.header.regulatoryReferenceNumber">
+      </div>
+    </div>
+    <div class="col-3 f-12 elipsis font-weight-normal">
+      <div class="row ml-2">
+        <span>Partner Ref:&nbsp;</span>
+        <input class="w-50 form-control form-control-rounded" type="text" [(ngModel)]="nerData.header.partnerReference">
+      </div>
+    </div>
+    <div class="col-3 f-12 elipsis font-weight-normal">
+      <div class="row">
+        <span>Literature Ref(s):&nbsp;</span>
+        <input class="w-50 form-control form-control-rounded" type="text"
+          [(ngModel)]="nerData.header.literatureReference">
+      </div>
+    </div>
+    <div class="col-3 f-12 elipsis font-weight-normal">
+      Safety DB Case Num : {{ nerData.header.safetyDBCaseNum }}
+    </div>
+
+    <div class="col-3 f-12 elipsis font-weight-normal">
+      Reporter Name : {{ nerData.header.reporterName }}
+    </div>
+    <div class="col-3 f-12 elipsis font-weight-normal">
+      File Type : {{ nerData.header.fileType }}
+    </div> -->
+  </div>
+</mat-toolbar>
+
+<mat-drawer-container class="example-container border" style="height: 350px;">
+  <mat-drawer disableClose="true" mode="side" opened style="min-width: 150px; width: auto;">
+    <ul class="list-group">
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 1 }" (click)="studyDetails(); stepper = 1">
+        Study Details
+      </li>
+      <!-- [ngClass]="{ menubg: stepper == (1.1 || 1.2 || 1.3) }" -->
+      <li class="list-group-item pl-2">
+        <div class="d-inline-flex c-p" (click)="showList = !showList">
+          <span class="my-auto">Patient Information</span>
+          <mat-icon>arrow_right</mat-icon>
+        </div>
+        <ul class="list-group" *ngIf="showList">
+          <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 2.1 }"
+            (click)="patientBasicInfo(); stepper = 2.1">
+            Basic Info
+          </li>
+          <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 2.2 }"
+            (click)="patientLabReports(); stepper = 2.2">
+            Lab Reports
+          </li>
+          <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 2.3 }"
+            (click)="patientRelevantTests(); stepper = 2.3">
+            Relevant Tests
+          </li>
+        </ul>
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 3 }" (click)="event(); stepper = 3">
+        Adverse Event
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 11 }" (click)="seriousness(); stepper = 11">
+        Case Seriousness
+      </li>
+
+      <li class="list-group-item pl-2">
+        <div class="d-inline-flex c-p" (click)="showSusProdList = !showSusProdList">
+          <span class="my-auto">Suspect Products</span>
+          <mat-icon>arrow_right</mat-icon>
+        </div>
+        <ul class="list-group" *ngIf="showSusProdList">
+          <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 4.1 }"
+            (click)="product(); stepper = 4.1">
+            Drug
+          </li>
+          <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 4.2 }"
+            (click)="suspectDevice(); stepper = 4.2">
+            Device
+          </li>
+        </ul>
+      </li>
+
+
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 5 }" (click)="narrative(); stepper = 5">
+        Case Narrative
+      </li>
+
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 6 }" (click)="reporterInfo(); stepper = 6">
+        Reporter Information
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 7 }"
+        (click)="manufacturerInfo(); stepper = 7">
+        Manufacturer Information
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 8 }"
+        (click)="concomitantMedication(); stepper = 8">
+        Concomitant Medication
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 9 }"
+        (click)="relevantHistory(); stepper = 9">
+        Relevant History
+      </li>
+      <li class="list-group-item c-p pl-2" [ngClass]="{ menubg: stepper == 10 }"
+        (click)="causalityAssessment(); stepper = 10">
+        Causality Assessment
+      </li>
+    </ul>
+  </mat-drawer>
+  <mat-drawer-content style="overflow-y: auto;">
+    <!-- <router-outlet></router-outlet> -->
+    <div *ngIf="nerFlag">
+      <app-patient *ngIf="patientBasicInfoFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.patient.basicInfo"></app-patient>
+
+      <app-pinfo-lab-details *ngIf="patientLabReportFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.patient.labDetails"></app-pinfo-lab-details>
+      <app-pinfo-relevant-tests *ngIf="patientRelevantTestFlag" caseId="{{ routepath.id }}"
+        assignflag="{{ assignFlag$ }}" [data]="nerData.patient.relevantTests"></app-pinfo-relevant-tests>
+
+      <app-event *ngIf="eventflag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.adverseEvent">
+      </app-event>
+
+      <app-product *ngIf="productflag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.suspectProduct.drug"></app-product>
+
+      <app-seriousness *ngIf="seriousnessFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.seriousness"></app-seriousness>
+
+      <app-prod-device-details *ngIf="suspectDeviceFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.suspectProduct.device"></app-prod-device-details>
+
+      <div *ngIf="narrativeflag" style="height: 350px; overflow-y: scroll;">
+        <app-narrative caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}" [data]="nerData.narrative">
+        </app-narrative>
+      </div>
+      <app-reporter-info *ngIf="reporterInfoFlag" [caseId]="routepath.id" [assignflag]="assignFlag$"
+        [data]="nerData.reporter"></app-reporter-info>
+      <app-manufacturer-info *ngIf="manuInfoFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.manufacturer"></app-manufacturer-info>
+      <app-concomitant-drug *ngIf="concomDrugFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.concomitantDrugs"></app-concomitant-drug>
+      <app-relevant-history *ngIf="relevantHistoryFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.relevantHistory"></app-relevant-history>
+      <app-study-details *ngIf="studyDetailsFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.studyDetails"></app-study-details>
+      <app-medical-review *ngIf="causalityAssessmentFlag" caseId="{{ routepath.id }}" assignflag="{{ assignFlag$ }}"
+        [data]="nerData.causalityAssessment"></app-medical-review>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<div class="row mt-2 mb-2">
+  <div class="col-6">
+    <button *ngIf="!caseTypeIn" type="button" (click)="viewdoc(false)" class="btn btn-rounded btn-primary mr-2">
+      View Doc/ Attachments
+    </button>
+    <button *ngIf="caseTypeIn" type="button" (click)="viewdoc(true)" class="btn btn-rounded btn-primary mr-2">
+      Upload Doc/ Attachments
+    </button>
+    <!-- <button type="button" (click)="viewmail()" class="btn btn-rounded btn-primary mr-2">
+      View Email
+    </button>
+    <button type="button" (click)="downloadAuditReport()" class="btn btn-rounded btn-primary">
+      Download audit report
+    </button> -->
+  </div>
+
+  <div class="col-6 d-flex justify-content-end">
+    <button *ngIf="!caseTypeIn" type="button" class="btn btn-rounded btn-primary mr-2" (click)="export('csv')">
+      Export to CSV
+    </button>
+    <!-- <button type="button" class="btn btn-rounded btn-primary mr-2" (click)="export('mail')" [disabled]="
+        !create ||
+        !update
+      ">
+      Send Mail
+    </button>
+
+    <button type="button" class="btn btn-rounded btn-primary  mr-2" (click)="export('xml')" [disabled]="
+        !create ||
+        !update
+      ">
+      Export Xml
+    </button> -->
+
+    <!-- <button type="button" [disabled]="
+        viewCase.status === 'approved' ||
+        viewCase.status === 'rejected' ||
+        !create ||
+        !update
+      " class="btn btn-rounded btn-primary" (click)="save()">
+      Save
+    </button> -->
+    <!-- <button type="button" class="btn btn-rounded btn-primary" (click)="test()">Test</button> -->
+    <button *ngIf="!caseTypeIn" type="button" class="btn btn-rounded btn-primary" [disabled]="!showActionFlag"
+      (click)="save()">
+      Save
+    </button>
+    <button *ngIf="caseTypeIn" type="button" class="btn btn-rounded btn-primary" (click)="createCaseTypeIn()">
+      Create
+    </button>
+  </div>
+</div>

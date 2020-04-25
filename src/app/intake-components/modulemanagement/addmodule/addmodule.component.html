@@ -1,0 +1,59 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 14 september 19
+*/
+-->
+<form [formGroup]="form" autocomplete="off" #moduleForm="ngForm">
+  <div>
+    <div class="modal-header">
+      <h4 class="modal-title" *ngIf="buttonFlag">Add Module</h4>
+      <h4 class="modal-title" *ngIf="!buttonFlag">Update Module</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Name *</label>
+          <input placeholder="Enter Name" class="form-control form-control-rounded" type="text"
+            formControlName="moduleName" [(ngModel)]="moduledata.moduleName" *ngIf="buttonFlag" />
+          <mat-error *ngIf="form.controls['moduleName'].touched"><small>{{ errorMessage("moduleName") }}</small>
+          </mat-error>
+
+          <input placeholder="Enter Name" class="form-control form-control-rounded" type="text"
+            formControlName="moduleName" [(ngModel)]="moduledata.moduleName" *ngIf="!buttonFlag" disabled />
+        </div>
+        <div class="form-group col-6">
+          <label>Display Name *</label>
+          <input placeholder="Enter Display Name" class="form-control form-control-rounded" type="text"
+            formControlName="moduleDisplayName" [(ngModel)]="moduledata.moduleDisplayName" />
+          <mat-error *ngIf="form.controls['moduleDisplayName'].touched">
+            <small>{{ errorMessage("moduleDisplayName") }}</small></mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Redirect Url *</label>
+          <input placeholder="Enter Url" class="form-control form-control-rounded" type="text"
+            formControlName="redirectUrl" [(ngModel)]="moduledata.redirectUrl" />
+          <mat-error *ngIf="form.controls['redirectUrl'].touched"><small>{{ errorMessage("redirectUrl") }}</small>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" [disabled]="!form.valid"
+        (click)="onFormSubmit()" *ngIf="buttonFlag">
+        Save
+      </button>
+
+      <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" [disabled]="!form.valid"
+        (click)="onFormUpdate()" *ngIf="!buttonFlag">
+        Update
+      </button>
+      <button type="button" class="btn btn-outline-secondary btn-rounded" [mat-dialog-close]="true">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

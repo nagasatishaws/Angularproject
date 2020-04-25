@@ -1,0 +1,303 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 25 september 19
+*/
+-->
+
+<mat-tab-group mat-stretch-tabs (selectedTabChange)="matClick($event)" *ngIf="btnflag">
+  <mat-tab label="Case">
+    <div *ngIf="btnflag" class="row mt-6 ml-auto mr-auto">
+      <div class="col-4">
+        <div class="col">
+          <div class="d-flex justify-content-center">
+            <div class="bg-color-circle c-p" style="border-radius: 50%; text-align:center;
+                    height: 120px; width: 120px;" (click)="caseTypeIn()">
+              <img class="image-margin" src="/assets/images/case.png" alt="e2b" />
+            </div>
+          </div>
+          <div class="mt-2 d-flex justify-content-center">
+            <span>Case Type-in</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4 d-flex justify-content-center">
+        <div class="col">
+          <div class="d-flex justify-content-center">
+            <div class="bg-color-circle c-p" style="border-radius: 50%; text-align:center;
+                    height: 120px; width: 120px;" (click)="docfunc('narative')">
+              <img class="image-margin" src="/assets/images/narrative.png" alt="narrative" />
+            </div>
+          </div>
+          <div class="mt-2 d-flex justify-content-center">
+            <span>Narrative Type-in</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4 d-flex justify-content-center">
+        <div class="col">
+          <div class="d-flex justify-content-center">
+            <div class="bg-color-circle c-p" style="border-radius: 50%; text-align:center;
+                  height: 120px; width: 120px;" (click)="docfunc('file')">
+              <img class="image-margin" src="/assets/images/fileupload.png" alt="fileupload" />
+            </div>
+          </div>
+          <div class="mt-2 d-flex justify-content-center">
+            <span>Document Upload</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Backup of E2B Blob
+      <div class="col-4">
+        <div class="col">
+          <div class="d-flex justify-content-center">
+            <div class="bg-color-circle c-p" style="border-radius: 50%; text-align:center;
+                    height: 120px; width: 120px;" (click)="e2bfunc()">
+              <img class="image-margin" src="/assets/images/xml.png" alt="e2b" />
+            </div>
+          </div>
+          <div class="mt-2 d-flex justify-content-center">
+            <span>E2B Upload</span>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </mat-tab>
+  <mat-tab label="Case Audit Logs">
+    <div class="mt-2" *ngIf="btnflag">
+      <ngx-datatable class="material" [rows]="processList" [columnMode]="'force'" [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="40" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+        [rowHeight]="40" rowHeight="auto" [messages]="nodata">
+        <!-- <ngx-datatable-column prop="solutionProcessId">
+          <ng-template ngx-datatable-header-template let-sort="sortFn">
+            <span class="c-p">Process Reference Id</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <p class="c-p">{{ value }}</p>
+          </ng-template>
+        </ngx-datatable-column> -->
+        <ngx-datatable-column prop="requestingService">
+          <ng-template ngx-datatable-header-template let-sort="sortFn">
+            <span class="c-p">Request Service</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="reqTime">
+          <ng-template ngx-datatable-header-template let-sort="sortFn">
+            <span class="c-p">Created Date and Time</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ formatToDate(value) | date: "dd/MM/yyyy HH:mm:ss" }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="data.subject">
+          <ng-template ngx-datatable-header-template let-sort="sortFn">
+            <span class="c-p">Case Description</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <p class="mb-1" title="{{ value }}">
+              {{ value.length > 20 ? (value | slice: 0:20) + ".." : value }}
+            </p>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column prop="updatedBy">
+          <ng-template ngx-datatable-header-template let-sort="sortFn">
+            <span class="c-p">Updated By</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <p class="mb-1" title="{{ value }}">
+              {{ value.length > 20 ? (value | slice: 0:20) + ".." : value }}
+            </p>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column prop="status">
+          <ng-template ngx-datatable-header-template let-sort="sortFn">
+            <span class="c-p">Status</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <p class="mb-1" title="{{ value }}">
+              {{ value.length > 20 ? (value | slice: 0:20) + ".." : value }}
+            </p>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<div class="row" *ngIf="docformflag">
+  <div class="col-12">
+    <!-- <button mat-button (click)="back()"> -->
+    <mat-icon (click)="back()">arrow_back</mat-icon>
+    <!-- </button> -->
+  </div>
+  <div [className]="filedoc ? 'col-6' : 'col-6'" *ngIf="filedoc || doc">
+    <div class="form-group">
+      <label>Case Description</label>
+      <input placeholder="Enter Description" class="form-control form-control-rounded" type="text"
+        [(ngModel)]="subject" />
+    </div>
+    <div class="form-group">
+      <label>Case Narrative</label>
+      <textarea *ngIf="!showPocComp" [ngStyle]="{ height: filedoc ? '100px' : '300px' }" placeholder="Enter Narrative"
+        class="form-control form-control-rounded" type="text" [(ngModel)]="body"></textarea>
+
+      <div id="newInputText" style="text-align: justify;"></div>
+    </div>
+    <div>
+      <button class="btn btn-rounded btn-primary mr-2" *ngIf="narrative && !showPocComp" (click)="analyzeNarrative()"
+        [disabled]="!subject">
+        Analyze
+      </button>
+      <button class="btn btn-rounded btn-primary mr-2" *ngIf="narrative && showPocComp" (click)="clearNarrative()">
+        Clear
+      </button>
+    </div>
+  </div>
+  <div class="col-6" *ngIf="narrative && showPocComp" style="border: rgb(175, 175, 175) 1px solid; border-radius: 8px;">
+    <div class="form-group">
+      <app-poc-component [analysisData]="analysisData" [eventDescription]="subject" [narrative]="body">
+      </app-poc-component>
+    </div>
+  </div>
+
+  <div [className]="filedoc ? 'col-6' : 'col-12'" *ngIf="filedoc || file">
+    <!-- [ng2FileDropAcceptMultiple]="multipleAllow" -->
+
+    <div class="row d-flex justify-content-center" *ngIf="!filedoc">
+      <div class="col-6">
+        <label>Case Description</label>
+        <input placeholder="Enter Description" class="form-control form-control-rounded" type="text"
+          [(ngModel)]="subject" />
+      </div>
+    </div>
+    <br />
+    <div ng2FileDrop [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }" (fileOver)="fileOverBase($event)"
+      [uploader]="uploader" (onFileDrop)="onFileSelected($event)" class="well my-drop-zone ">
+      <span class="align-middle">Drop or select the files</span>
+      <br />
+      <span class="material-icons upload-icon">cloud_upload</span>
+      <br />
+      <div class="upload-btn-wrapper">
+        <button class="btn btn-primary btn-rounded" type="button">
+          Browse
+        </button>
+        <input type="file" ng2FileSelect [uploader]="uploader" multiple="allowMultiple"
+          (onFileSelected)="onFileSelected($event)" />
+      </div>
+    </div>
+  </div>
+  <div class="col-12" *ngIf="filedoc || file">
+    <div class="row mt-2 mr-0">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Size</th>
+              <th scope="col">Progress</th>
+              <!-- <th scope="col" width="2%">Status</th> -->
+
+              <th scope="col" width="10%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="uploadSection" *ngFor="let item of uploader.queue; let i = index" [class.bg-light]="item.isUploaded"
+              [class.uploadComplete]="item.isUploaded">
+              <fieldset id="uploadSection" [class.disabled]="item.isUploaded" [disabled]="item.isUploaded"
+                class="w-100 d-contents">
+                <th scope="row">{{ item?.file?.name }}</th>
+                <td>{{ item?.file?.size / 1024 / 1024 | number: ".2" }} MB</td>
+                <td>
+                  <div class="progress" style="margin-bottom: 0;">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{ width: item.progress + '%' }"></div>
+                  </div>
+                </td>
+                <!-- <td class="text-center">
+                  <span
+                    *ngIf="item.isSuccess"
+                    class="fa fa-check-circle"
+                  ></span>
+
+                  <span *ngIf="item.isCancel" class="fa fa-ban-circle"></span>
+
+                  <i *ngIf="item.isError" class="fa fa-times-circle"></i>
+                </td> -->
+                <td class="td-actions">
+                  <!-- <mat-icon matTooltip="Upload" (click)="item.upload()" style="color:green;">cloud_upload</mat-icon> -->
+
+                  <!-- <mat-icon (click)="item.cancel()"
+                            matTooltip="Cancel"
+                            style="color: #ffc107;">close</mat-icon> -->
+
+                  <mat-icon (click)="item.remove()" matTooltip="Remove" style="color:red;">delete</mat-icon>
+                </td>
+              </fieldset>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div style="float: right;">
+      <div style="display:none;">
+        Queue progress:
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" [ngStyle]="{ width: uploader.progress + '%' }"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row w-100 d-flex justify-content-end mt-2">
+    <!-- <button class="btn btn-rounded btn-primary mr-2" *ngIf="narrative" (click)="analyzeNarrative()">
+      Analyze
+    </button> -->
+
+    <button *ngIf="file" class="btn btn-rounded btn-primary" (click)="createCase()" [disabled]="!subject">
+      Create Case
+    </button>
+    <!-- <button
+      *ngIf="file"
+      class="btn btn-rounded btn-primary"
+      (click)="createCase()"
+    >
+      Create Case
+    </button> -->
+  </div>
+</div>
+
+<div class="row" *ngIf="e2bformflag">
+  <mat-card class="w-100">
+    <!-- <button mat-button> -->
+    <mat-icon (click)="back()">arrow_back</mat-icon>
+    <!-- </button> -->
+
+    <div class="form-group">
+      <label>Case Description *</label>
+      <input placeholder="Enter Description" class="form-control form-control-rounded" type="text"
+        [(ngModel)]="subject" />
+    </div>
+    <div class="form-group">
+      <label>Case Narrative *</label>
+      <textarea placeholder="Enter Narrative" style="height: 300px" class="form-control form-control-rounded"
+        type="text" [(ngModel)]="body"></textarea>
+    </div>
+
+    <div class="row d-flex justify-content-end mr-2">
+      <button class="btn btn-rounded btn-primary mr-2" (click)="checkXml()">
+        Parse Data
+      </button>
+      <button disabled class="btn btn-rounded btn-primary" (click)="createCase()" [disabled]="parseFlag">
+        Create
+      </button>
+    </div>
+  </mat-card>
+</div>

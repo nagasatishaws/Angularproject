@@ -1,0 +1,20 @@
+<div class="mx-0">
+    <form class="row" [formGroup]="selectForm">
+        <div class="col-4">
+            <input placeholder="Code" [(ngModel)]="externalQuestion.code" formControlName="code"
+                class="form-control form-control-rounded" type="text" name="code" />
+        </div>
+        <div class="col-4">
+            <input placeholder="Dictionary" [(ngModel)]="externalQuestion.dictionary" formControlName="dictionary"
+                class="form-control form-control-rounded" type="text" name="dictionary" />
+        </div>
+        <div class="col-4">
+            <input placeholder="Version" [(ngModel)]="externalQuestion.version" formControlName="version"
+                class="form-control form-control-rounded" type="text" name="version" />
+        </div>
+        <!-- <div class="col-1">
+            <button type="button" (click)="addItem();" [disabled]="!selectForm.valid"
+                class="btn btn-primary btn-rounded">Add</button>
+        </div> -->
+    </form>
+</div>

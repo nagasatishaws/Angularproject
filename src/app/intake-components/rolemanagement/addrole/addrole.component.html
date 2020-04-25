@@ -1,0 +1,115 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 25 sep 2019
+*/
+-->
+<form [formGroup]="form"
+      autocomplete="off"
+      #roleForm="ngForm">
+  <div>
+    <div class="modal-header">
+      <h4 class="modal-title"
+          *ngIf="buttonFlag">Add Role</h4>
+      <h4 class="modal-title"
+          *ngIf="!buttonFlag">Update Role</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Name *</label>
+          <input placeholder="Enter Name"
+                 class="form-control form-control-rounded"
+                 type="text"
+                 formControlName="roleName"
+                 [(ngModel)]="roledata.roleName" />
+          <mat-error *ngIf="form.controls['roleName'].touched"><small>{{ errorMessage("roleName") }}</small>
+          </mat-error>
+        </div>
+        <div class="form-group col-6">
+          <label>Display Name *</label>
+          <input placeholder="Enter Display Name"
+                 class="form-control form-control-rounded"
+                 type="text"
+                 formControlName="roleDisplayName"
+                 [(ngModel)]="roledata.roleDisplayName" />
+          <mat-error *ngIf="form.controls['roleDisplayName'].touched">
+            <small>{{ errorMessage("roleDisplayName") }}</small>
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Client *</label>
+
+          <mat-select *ngIf="isSuperAdmin"
+                      placeholder="Select Client"
+                      class="form-control form-control-rounded"
+                      formControlName="clientId"
+                      [disabled]="!buttonFlag"
+                      [(ngModel)]="roledata.clientId"
+                      (selectionChange)="setModulesList(roledata.clientId)">
+            <mat-option [value]="clientlists.clientId"
+                        *ngFor="let clientlists of clientlist; let i = index">
+              {{ clientlists.clientName }}
+            </mat-option>
+          </mat-select>
+
+          <!-- <input *ngIf="!isSuperAdmin" placeholder="Select Client" class="form-control form-control-rounded" type="text"
+            formControlName="clientId" [(ngModel)]="roledata.clientId" /> -->
+
+          <mat-select *ngIf="!isSuperAdmin"
+                      placeholder="Select Client"
+                      class="form-control form-control-rounded"
+                      formControlName="clientId"
+                      disabled
+                      [(ngModel)]="roledata.clientId"
+                      (selectionChange)="setModulesList(roledata.clientId)">
+            <mat-option [value]="clientlists.clientId"
+                        *ngFor="let clientlists of clientlist; let i = index">
+              {{ clientlists.clientName }}
+            </mat-option>
+          </mat-select>
+        </div>
+        <div class="form-group col-6">
+          <label>Module *</label>
+          <mat-select placeholder=" Select Module"
+                      multiple
+                      class="form-control form-control-rounded"
+                      formControlName="moduleName"
+                      [(ngModel)]="roledata.moduleName">
+            <mat-option *ngFor="let module of modulelist"
+                        value="{{module.moduleName}}">
+              {{module.moduleName}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit"
+              ngbAutofocus
+              class="btn btn-primary btn-rounded"
+              [disabled]="!form.valid"
+              (click)="onFormSubmit()"
+              *ngIf="buttonFlag">
+        Save
+      </button>
+
+      <button type="submit"
+              ngbAutofocus
+              class="btn btn-primary btn-rounded"
+              [disabled]="!form.valid"
+              (click)="onFormUpdate()"
+              *ngIf="!buttonFlag">
+        Update
+      </button>
+      <button type="button"
+              class="btn btn-outline-secondary btn-rounded"
+              [mat-dialog-close]="true">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

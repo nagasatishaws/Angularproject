@@ -1,0 +1,99 @@
+<!--
+  /**
+* Author - Lohit
+* Version - 1.0
+* Create date - 27 November 19
+*/
+-->
+<form [formGroup]="form" autocomplete="off" #moduleForm="ngForm">
+  <div>
+    <div class="modal-header">
+      <h4 class="modal-title" *ngIf="buttonFlag">Add Rule</h4>
+      <h4 class="modal-title" *ngIf="!buttonFlag">Update Rule</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+
+        <div class="form-group col-6">
+          <label>Rule Name *</label>
+          <input placeholder="Enter Rule Name" class="form-control form-control-rounded" type="text"
+            formControlName="ruleName" [(ngModel)]="ruledata.ruleName" *ngIf="buttonFlag" />
+          <mat-error *ngIf="form.controls['ruleName'].touched"><small>{{ errorMessage("ruleName") }}</small>
+          </mat-error>
+
+          <input placeholder="Enter Rule Name" class="form-control form-control-rounded" type="text"
+            formControlName="ruleName" [(ngModel)]="ruledata.ruleName" *ngIf="!buttonFlag" disabled />
+        </div>
+
+        <div class="form-group col-6">
+          <label>Source *</label>
+          <mat-select class="mt-1" placeholder="Source" [(ngModel)]="ruledata.source" formControlName="source">
+            <mat-option *ngFor="let item of sourceList" [value]="item.value">
+              {{item.source}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="form-group col-6">
+          <label>Seriouness *</label>
+          <mat-select class="mt-1" placeholder="Seriouness" [(ngModel)]="ruledata.seriousness"
+            formControlName="seriousness">
+            <mat-option *ngFor="let item of seriousnessList" [value]="item">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="form-group col-6">
+          <label>File Type *</label>
+          <mat-select class="mt-1" multiple placeholder="Form Type" [(ngModel)]="ruledata.formType"
+            formControlName="formType">
+            <mat-option *ngFor="let item of formTypeList" [value]="item.value">
+              {{item.formType}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="form-group col-12">
+          <h5>Set value</h5>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="form-group col-6">
+          <label>Priority *</label>
+          <mat-select class="mt-1" placeholder="Priority" [(ngModel)]="ruledata.priority" formControlName="priority">
+            <mat-option *ngFor="let item of priorityList" [value]="item.value">
+              {{item.priority}}
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="form-group col-6">
+          <label>Deadline *</label>
+          <input placeholder="Deadline" type="Number" class="form-control form-control-rounded"
+            formControlName="deadline" [(ngModel)]="ruledata.deadline" NumericInput>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" [disabled]="!form.valid"
+        (click)="onFormSubmit()" *ngIf="buttonFlag">
+        Save
+      </button>
+
+      <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" [disabled]="!form.valid"
+        (click)="onFormUpdate()" *ngIf="!buttonFlag">
+        Update
+      </button>
+      <button type="button" class="btn btn-outline-secondary btn-rounded" [mat-dialog-close]="true">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

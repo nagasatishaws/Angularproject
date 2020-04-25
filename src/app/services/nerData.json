@@ -1,0 +1,44 @@
+{
+  "header": {
+    "caseId": "2152",
+    "caseVersion": "1",
+    "reportType": "Initial",
+    "dateReceived": "2019-09-26",
+    "dateOfThisReport": "2019-09-25",
+    "patientOutcome": "n/a"
+  },
+  "patient": {
+    "age": 2,
+    "ageUnit": "years",
+    "sex": "Male",
+    "weight": 50,
+    "weightUnit": "kg"
+  },
+  "event": {
+    "reactionOnsetDate": "2019-09-26",
+    "preferredTermLevel": "preferred",
+    "treatmentDuration": 3,
+    "treatmentDurationUnit": "Days",
+    "reactionStopped": "Yes",
+    "reactionReappeared": "Yes",
+    "therapyStarted": "2019-09-26",
+    "therapyEnded": "2019-09-25"
+  },
+  "product": {
+    "suspectDrug": "Calpol",
+    "routeOfAdministration": "Route",
+    "drugDose": 500,
+    "unitOfDrugDose": "g",
+    "dosageForm": "Oral",
+    "drugSequenceNumber": "1",
+    "doseAdministrationText": "admin",
+    "dosageFrequency": "2",
+    "cummulativeDoseToFirstReaction": "1",
+    "cummulativeDoseUnit": "1",
+    "lotNumber": "2",
+    "expirationDate": "26/09/2019"
+  },
+  "narative": {
+    "narrative": "Narrative Data"
+  }
+}

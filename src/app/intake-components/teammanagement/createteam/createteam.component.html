@@ -1,0 +1,65 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 25 sep 2019
+*/
+-->
+
+<div class="modal-header">
+  <h4 class="modal-title">Create Team</h4>
+</div>
+<div class="modal-body">
+  <form [formGroup]="teamform"
+        autocomplete="off"
+        #createteamform="ngForm">
+    <div class="form-group">
+      <label>Team Name *</label>
+      <input placeholder="Enter Name"
+             formControlName="teamName"
+             class="form-control form-control-rounded"
+             type="text"
+             [(ngModel)]="teamdata.teamName" />
+      <mat-error *ngIf="teamform.controls['teamName'].touched"><small>{{ errorMessage("teamName") }}</small>
+      </mat-error>
+    </div>
+    <div class="form-group">
+      <label>Select Users *</label>
+      <mat-select placeholder=" Select User"
+                  multiple
+                  formControlName="listOfUsers"
+                  class="form-control form-control-rounded"
+                  [(ngModel)]="teamdata.listOfUsers">
+        <mat-option *ngFor="let user of userlist"
+                    [value]="user.userId">
+          {{ user.firstName }} {{ user.lastName }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="submit"
+          ngbAutofocus
+          class="btn btn-primary btn-rounded"
+          [disabled]="!teamform.valid"
+          (click)="onFormSubmit()"
+          *ngIf="buttonFlag">
+    Save
+  </button>
+
+  <button type="submit"
+          ngbAutofocus
+          class="btn btn-primary btn-rounded"
+          [disabled]="!teamform.valid"
+          (click)="onFormUpdate()"
+          *ngIf="!buttonFlag">
+    Update
+  </button>
+
+  <button type="button"
+          class="btn btn-outline-secondary btn-rounded"
+          [mat-dialog-close]="true">
+    Cancel
+  </button>
+</div>

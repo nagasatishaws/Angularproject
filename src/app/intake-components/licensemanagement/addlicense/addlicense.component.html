@@ -1,0 +1,70 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 26 september 19
+*/
+-->
+<form [formGroup]="form" autocomplete="off" #licenseForm="ngForm">
+  <div>
+    <div class="modal-header">
+      <h4 class="modal-title">Add License</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Start Date *" formControlName="startDate"
+              [min]="startDate" [(ngModel)]="licensedata.startDate" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker1" placeholder="End Date *" [min]="licensedata.startDate"
+              formControlName="endDate" [(ngModel)]="licensedata.endDate" />
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>No Of Active Users *</label>
+          <input placeholder="Enter Number of Active Users" class="form-control form-control-rounded" type="number"
+            formControlName="noActUsers" [(ngModel)]="licensedata.noActUsers" NumericInput />
+        </div>
+        <div class="form-group col-6">
+          <label for="Existing Role">Module *</label>
+          <mat-select placeholder=" Select Module" multiple class="form-control form-control-rounded"
+            formControlName="modules" [(ngModel)]="licensedata.modules">
+            <mat-option [value]="modulelists.moduleId" *ngFor="let modulelists of modulelist; let i = index">
+              {{ modulelists.moduleName }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label for="Existing Role">Client *</label>
+          <mat-select placeholder=" Select Client" class="form-control form-control-rounded" formControlName="clientId"
+            [(ngModel)]="licensedata.clientId">
+            <mat-option [value]="clientlists.clientId" *ngFor="let clientlists of clientlist; let i = index">
+              {{ clientlists.clientName }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" [disabled]="!form.valid"
+        (click)="onFormSubmit()">
+        Save
+      </button>
+      <button type="button" class="btn btn-outline-secondary btn-rounded" [mat-dialog-close]="undefined">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

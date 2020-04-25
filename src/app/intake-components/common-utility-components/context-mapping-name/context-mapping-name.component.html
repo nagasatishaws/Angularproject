@@ -1,0 +1,19 @@
+<div class="mx-0">
+    <form class="row w-100" [formGroup]="selectForm">
+        <div class="col-4">
+            <input formControlName="context" placeholder="Context" class="form-control form-control-rounded"
+                name="context" />
+        </div>
+        <div class="col-4">
+            <input formControlName="mappingExpression" placeholder="Mapping Expression"
+                class="form-control form-control-rounded" name="mappingExpression" />
+        </div>
+        <div class="col-3">
+            <input formControlName="name" placeholder="Name" class="form-control form-control-rounded" name="name" />
+        </div>
+        <div class="col-1">
+            <button type="button" (click)="addItem();" [disabled]="!selectForm.valid"
+                class="btn btn-primary btn-rounded">Add</button>
+        </div>
+    </form>
+</div>

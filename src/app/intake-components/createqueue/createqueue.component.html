@@ -1,0 +1,79 @@
+<div class="row d-flex justify-content-end">
+  <!-- <div class="mr-2 search-bar-custom">
+    <input type="text" placeholder="Search" (keyup)="filterItem($event)" />
+    <i class="search-icon text-muted i-Magnifi-Glass1"></i>
+  </div> -->
+
+  <div class="col-2" *ngIf="!clientFlag">
+    <mat-select placeholder=" Select Client" class="form-control form-control-rounded" [(ngModel)]="clientId"
+      (selectionChange)="getQueue()">
+      <mat-option [value]="clientlists.clientId" *ngFor="let clientlists of clientlist; let i = index">
+        {{ clientlists.clientName }}
+      </mat-option>
+    </mat-select>
+  </div>
+
+  <!-- <button mat-button color="primary" class="mr-2">
+    <mat-icon title="Queue">filter_list</mat-icon>
+  </button> -->
+  <button mat-mini-fab color="primary" (click)="addqueue()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div class="mt-3">
+  <ngx-datatable class="material" [rows]="filteredItems" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="40" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="40" rowHeight="auto"
+    [messages]="nodata">
+
+    <ngx-datatable-column prop="queueId">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Queue ID</span>
+      </ng-template>
+      <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+        <span class="c-p" (click)="editmodule(row._id)" style="text-decoration: underline;">{{ row.queueId }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="queueName">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Queue Name</span>
+      </ng-template>
+      <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+        <span>{{ value }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="drugName">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Drug Name</span>
+      </ng-template>
+      <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+        <span>{{ value }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="severity">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Severity</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column prop="status">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Status</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="roleId">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Role ID</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

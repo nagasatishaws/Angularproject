@@ -1,0 +1,244 @@
+<!-- <div class="card m-2">
+  <div class="card-header">
+    <strong>VIEW NARRATIVES</strong>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <strong>Total Detected Cases: &nbsp;</strong>6
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <strong>Event Preferred Term: &nbsp;</strong>Product Use Complaint
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>1. CAS-2020-01-1140</mat-expansion-panel-header>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"><strong>Reaction PTs</strong></div>
+                      <div class="card-body">
+                        <span>Wrong Technique in Product Usage Process</span> <br>
+                        <span>Incorrect Dose Administered</span> <br>
+                        <span>Product Use Compliant</span> <br>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-4">
+                    <label><strong>Start Date: &nbsp;</strong></label>27 Dec 19
+                  </div>
+                  <div class="col-4">
+                    <label><strong>Country: &nbsp;</strong></label>Canada
+                  </div>
+                  <div class="col-4">
+                    <label><strong>Medically confirmed: &nbsp;</strong></label>No
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"><strong>Narrative</strong></div>
+                      <div class="card-body">
+                        <span>The spontaneous report received from a patient concerned a female of unspecified age. The
+                          patients height and weight were not reported. The patient's concurrent conditions included
+                          gluten allergy and banana allergy. The patient received paracetamol (tablet, Oral, batch:
+                          CT30043H, expiry: 30/JUN/2021) 1 dosage forms, frequency not reported, from 27-Dec-2019 for
+                          pain. No concomitant medications were reported. On 27-Dec-2019, the patient experienced had to
+                          cut paracetamol in half (wrong technique in drug usage process), took paracetamol one pill
+                          once (incorrect dose administered) and paracetamol difficult to swallow (product difficult to
+                          swallow).
+                          The action taken with paracetamol was not reported.
+                          The outcome of the had to cut the paracetamol in half (wrong technique in drug usage process),
+                          took paracetamol one pill once (incorrect dose administered) and paracetamol difficult to
+                          swallow (product difficult to swallow) was not reported.
+
+                          This report was non-serious.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"><strong>Medical Assessment</strong></div>
+                      <div class="card-body">
+                        <span>No medical assessment for this case.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel class="mt-2" *ngFor="let narrative of narrativeList">
+                <mat-expansion-panel-header>{{narrative}}</mat-expansion-panel-header>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="m-2"><strong>Result ID: &nbsp;</strong>405493</div>
+<div class="card m-2">
+  <div class="card-header">
+    <strong style="color: #663399; font-size: 14px;">VIEW NARRATIVES</strong>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <strong>Total Detected Cases: &nbsp;</strong>6
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <strong>Event Preferred Term: &nbsp;</strong>Product Use Complaint
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>NARRATIVE TREND ANALYSIS</strong>
+              </div>
+              <div class="card-body">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header"><strong>Gender</strong></div>
+                    <div class="card-body">
+                      <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                        [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                        [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                        [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'"
+                        [yAxisLabelColor]="'black'" [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'"
+                        [offsetGridLines]=false [headerLabelArray]="narrSexLabels" [chartData]="narrSexData"
+                        [refreshChart]="refreshChart">
+                      </app-chart-js>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 mt-2">
+                  <div class="card">
+                    <div class="card-header"><strong>Age</strong></div>
+                    <div class="card-body">
+                      <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                        [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                        [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                        [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'"
+                        [yAxisLabelColor]="'black'" [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'"
+                        [offsetGridLines]=false [headerLabelArray]="narrAgeLabels" [chartData]="narrAgeData"
+                        [refreshChart]="refreshChart">
+                      </app-chart-js>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 mt-2">
+                  <div class="card">
+                    <div class="card-header"><strong>AI Context Sense</strong></div>
+                    <div class="card-body">
+                      <app-chart-js [chartTypes]="chart1" [scaleShowVerticalLines]=false [responsive]=true
+                        [maintainAspectRatio]=true [legendDisplay]=true [legendLabelColor]="'black'"
+                        [xAxisGridLinesDisplay]=true [yAxisGridLinesDisplay]=true [yAxisLabelString]="'Count of Cases'"
+                        [xAxisLabelShow]=true [yAxisLabelShow]=true [xAxisLabelColor]="'black'"
+                        [yAxisLabelColor]="'black'" [xAxisDataLabelColor]="'black'" [yAxisDataLabelColor]="'black'"
+                        [offsetGridLines]=false [headerLabelArray]="narrContextLabels" [chartData]="narrContextData"
+                        [refreshChart]="refreshChart">
+                      </app-chart-js>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-12">
+            <mat-accordion>
+              <mat-expansion-panel class="mb-2" *ngFor="let narrative of narrativeList">
+                <mat-expansion-panel-header>{{narrative}}</mat-expansion-panel-header>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"><strong>Reaction PTs</strong></div>
+                      <div class="card-body">
+                        <span>Wrong Technique in Product Usage Process</span> <br>
+                        <span>Incorrect Dose Administered</span> <br>
+                        <span>Product Use Compliant</span> <br>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-4">
+                    <label><strong>Start Date: &nbsp;</strong></label>27 Dec 19
+                  </div>
+                  <div class="col-4">
+                    <label><strong>Country: &nbsp;</strong></label>Canada
+                  </div>
+                  <div class="col-4">
+                    <label><strong>Medically confirmed: &nbsp;</strong></label>No
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"><strong>Narrative</strong></div>
+                      <div class="card-body">
+                        <span>The spontaneous report received from a patient concerned a female of unspecified age. The
+                          patients height and weight were not reported. The patient's concurrent conditions included
+                          gluten allergy and banana allergy. The patient received paracetamol (tablet, Oral, batch:
+                          CT30043H, expiry: 30/JUN/2021) 1 dosage forms, frequency not reported, from 27-Dec-2019 for
+                          pain. No concomitant medications were reported. On 27-Dec-2019, the patient experienced had to
+                          cut paracetamol in half (wrong technique in drug usage process), took paracetamol one pill
+                          once (incorrect dose administered) and paracetamol difficult to swallow (product difficult to
+                          swallow).
+                          The action taken with paracetamol was not reported.
+                          The outcome of the had to cut the paracetamol in half (wrong technique in drug usage process),
+                          took paracetamol one pill once (incorrect dose administered) and paracetamol difficult to
+                          swallow (product difficult to swallow) was not reported.
+
+                          This report was non-serious.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header"><strong>Medical Assessment</strong></div>
+                      <div class="card-body">
+                        <span>No medical assessment for this case.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

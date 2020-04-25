@@ -1,0 +1,103 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 25 sep 2019
+*/
+-->
+<form [formGroup]="form" autocomplete="off" #userForm="ngForm">
+  <div>
+    <div class="modal-header">
+      <h4 class="modal-title" *ngIf="!updateFlag">Add User</h4>
+      <h4 class="modal-title" *ngIf="updateFlag">Update User</h4>
+    </div>
+    <div class="modal-body mat-typography">
+      <div class="row">
+        <div class="form-group col-6">
+          <label>First Name *</label>
+          <input placeholder="Enter First Name" class="form-control form-control-rounded" type="text"
+            formControlName="firstName" [(ngModel)]="userdata.firstName" />
+          <mat-error *ngIf="form.controls['firstName'].touched"><small>{{ errorMessage("firstName") }}</small>
+          </mat-error>
+        </div>
+        <div class="form-group col-6">
+          <label>Last Name *</label>
+          <input placeholder="Enter Last Name" class="form-control form-control-rounded" type="text"
+            formControlName="lastName" [(ngModel)]="userdata.lastName" />
+          <mat-error *ngIf="form.controls['lastName'].touched"><small>{{ errorMessage("lastName") }}</small>
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Client *</label>
+          <mat-select placeholder="Select Client" class="form-control form-control-rounded" formControlName="clientId"
+            [(ngModel)]="userdata.clientId" (selectionChange)="setRolesForClient($event)" [disabled]="updateFlag">
+            <mat-option *ngFor="let client of client_list" value="{{ client.clientId }}">{{ client.clientName }}
+            </mat-option>
+          </mat-select>
+        </div>
+        <div class="form-group col-6" *ngIf="showRoleList">
+          <label>Role Name *</label>
+          <mat-select placeholder="Select Role" class="form-control form-control-rounded" formControlName="roleId"
+            [(ngModel)]="userdata.roleId">
+            <mat-option *ngFor="let role of role_list" value="{{ role.roleId }}">
+              {{ role.roleDisplayName }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-6">
+          <label>EmailId *</label>
+          <input placeholder="Enter Email" class="form-control form-control-rounded" type="email"
+            formControlName="emailId" [(ngModel)]="userdata.emailId" style="text-transform: lowercase" />
+        </div>
+        <div class="form-group col-6">
+          <label>Mobile Number *</label>
+          <input placeholder="Enter Mobile Number" class="form-control form-control-rounded" type="number"
+            formControlName="mobileNo" [(ngModel)]="userdata.mobileNo" NumericInput />
+          <mat-error *ngIf="form.controls['mobileNo'].touched"><small>{{ errorMessageMobile("mobileNo") }}</small>
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Designation *</label>
+          <input placeholder="Enter Designation" class="form-control form-control-rounded" type="text" maxlength="32"
+            formControlName="designation" [(ngModel)]="userdata.designation" />
+        </div>
+        <div class="form-group col-6">
+          <label>Department *</label>
+          <input placeholder="Enter Department" class="form-control form-control-rounded" type="text"
+            formControlName="department" [(ngModel)]="userdata.department" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Password *</label>
+          <input placeholder="Enter Password" class="form-control form-control-rounded" type="password"
+            formControlName="password" [(ngModel)]="userdata.password" autocomplete="off" *ngIf="!updateFlag" />
+
+          <input placeholder="Enter Password" class="form-control form-control-rounded" type="password"
+            formControlName="password" [(ngModel)]="userdata.password" autocomplete="off" *ngIf="updateFlag" disabled />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button *ngIf="!updateFlag" type="submit" ngbAutofocus class="btn btn-primary btn-rounded"
+        [disabled]="!form.valid" (click)="onFormSubmit()">
+        Save
+      </button>
+      <button *ngIf="updateFlag" type="submit" ngbAutofocus class="btn btn-primary btn-rounded" [disabled]="!form.valid"
+        (click)="onFormUpdate()">
+        Update
+      </button>
+      <button type="button" class="btn btn-outline-secondary btn-rounded" [mat-dialog-close]="undefined">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

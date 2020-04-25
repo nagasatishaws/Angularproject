@@ -1,0 +1,109 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 18 september 19
+*/
+-->
+<form [formGroup]="form"
+      autocomplete="off"
+      #clientForm="ngForm">
+  <div>
+    <div class="modal-header">
+      <h4 class="modal-title">Add Client</h4>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Client *</label>
+          <input placeholder="Enter Client"
+                 class="form-control form-control-rounded"
+                 type="text"
+                 formControlName="clientName"
+                 [(ngModel)]="clientdata.clientName" />
+          <mat-error *ngIf="form.controls['clientName'].touched"><small>{{ errorMessage("clientName") }}</small>
+          </mat-error>
+        </div>
+        <div class="form-group col-6">
+          <label>Industry *</label>
+          <input placeholder="Enter Industry"
+                 class="form-control form-control-rounded"
+                 type="text"
+                 formControlName="industry"
+                 [(ngModel)]="clientdata.industry" />
+          <mat-error *ngIf="form.controls['industry'].touched"><small>{{ errorMessage("industry") }}</small>
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Billing Address *</label>
+          <input placeholder="Enter Billing Address"
+                 class="form-control form-control-rounded"
+                 type="text"
+                 formControlName="billingAddress"
+                 [(ngModel)]="clientdata.billingAddress" />
+        </div>
+        <div class="form-group col-6">
+          <label>Contact Person Name *</label>
+          <input placeholder="Enter Contact Person Name"
+                 class="form-control form-control-rounded"
+                 type="text"
+                 formControlName="contactPersonName"
+                 [(ngModel)]="clientdata.contactPersonName" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Contact Phone Number *</label>
+          <input placeholder="Enter Contact Phone Number"
+                 class="form-control form-control-rounded"
+                 type="number"
+                 formControlName="contactPhoneNumber"
+                 [(ngModel)]="clientdata.contactPhoneNumber" />
+        </div>
+        <div class="form-group col-6">
+          <label>Email Id *</label>
+          <input placeholder="Enter Email Id"
+                 class="form-control form-control-rounded"
+                 type="email"
+                 formControlName="emailId"
+                 [(ngModel)]="clientdata.emailId" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label>Session Expiry Time(in mins)</label>
+          <input placeholder="Enter Session Expiry Time"
+                 class="form-control form-control-rounded"
+                 type="text"
+                 formControlName="sessionExpiryTime"
+                 [(ngModel)]="clientdata.configParams.sessionExpiryTime" />
+        </div>
+        <!-- <div class="form-group col-6">
+          <label>License *</label>
+          <mat-select placeholder=" Select License" class="form-control form-control-rounded"
+            formControlName="license_id" [(ngModel)]="clientdata.license_id">
+            <mat-option *ngFor="let license of license_list" value="{{license.license_id}}">
+              {{license.license_id}}
+            </mat-option>
+          </mat-select>
+        </div> -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit"
+              ngbAutofocus
+              class="btn btn-primary btn-rounded"
+              [disabled]="!form.valid"
+              (click)="onFormSubmit()">
+        Save
+      </button>
+      <button type="button"
+              class="btn btn-outline-secondary btn-rounded"
+              [mat-dialog-close]="undefined">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

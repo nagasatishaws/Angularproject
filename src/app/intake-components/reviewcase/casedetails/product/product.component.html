@@ -1,0 +1,171 @@
+<div class="row m-2">
+  <div class="col-12">
+    <h5 class="mt-1">Suspect Drugs List</h5>
+    <hr class="mt-2 mb-3">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-responsive" style="border: 1px solid #ddd; table-layout: fixed;">
+          <thead>
+            <tr style="text-align: center;">
+              <th scope="col" *ngFor="let header of labDetailsHeaders">{{header}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data.drugList; let i = index" style="text-align: center;">
+              <td colspan="1" *ngFor="let key of labDetailsKeys;">
+                <span style="text-align: justify;">{{row[key]}}</span>
+              </td>
+              <td colspan="1">{{showCheckedValue(row['testArticleReceived'])}}</td>
+              <td>
+                <div class="row">
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-edit c-p" (click)="editRowClick(i)"></span>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-trash text-danger c-p" (click)="deleteRowClick(i)"></span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class="mt-2 mb-3">
+
+    <form [formGroup]="formGroup">
+      <div class="row mt-1">
+        <div class="col-12">
+          <div class="form-group row">
+            <div class="col-4">
+              <label>Suspect Drug Name</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Suspect Drug Name"
+                formControlName="suspectDrugName">
+            </div>
+            <div class="col-4">
+              <label>Dose</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Dose" formControlName="dose">
+            </div>
+            <div class="col-4">
+              <label>Route of Administration</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Route of Administration"
+                formControlName="routeOfAdministration">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-4 my-auto">
+              <label>Is Secondary suspect?</label>
+              <input class="mx-2 my-1" type="checkbox" formControlName="isSecondarySuspect">
+            </div>
+            <div class="col-4">
+              <label>Indication</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Indication"
+                formControlName="indication">
+            </div>
+            <div class="col-4">
+              <label>Lot Number</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Lot Number"
+                formControlName="lotNumber">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <label>Therapy Start Date</label>
+              <input class="form-control form-control-rounded" type="date" placeholder="Therapy Start Date"
+                formControlName="therapyStartDate">
+            </div>
+
+            <div class="col-6">
+              <label>Therapy End Date</label>
+              <input class="form-control form-control-rounded" type="date" placeholder="Therapy End Date"
+                formControlName="therapyEndDate">
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-6">
+              <label>Did reaction abate after stopping drug?</label>
+              <div class="row">
+                <div class="col">
+                  <input class="mx-1" type="radio" name="reactionAbate" formControlName="reactionAbate" value="Yes"> Yes
+                  <br>
+                  <input class="mx-1" type="radio" name="reactionAbate" formControlName="reactionAbate" value="No"> No
+                  <br>
+                  <input class="mx-1" type="radio" name="reactionAbate" formControlName="reactionAbate" value="N/A"> N/A
+                  <br>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <label>Did reaction reappear after reintroduction?</label>
+              <div class="row">
+                <div class="col">
+                  <input class="mx-1" type="radio" name="reactionReappear" formControlName="reactionReappear"
+                    value="Yes">
+                  Yes <br>
+                  <input class="mx-1" type="radio" name="reactionReappear" formControlName="reactionReappear"
+                    value="No"> No
+                  <br>
+                  <input class="mx-1" type="radio" name="reactionReappear" formControlName="reactionReappear"
+                    value="N/A">
+                  N/A <br>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-6">
+              <label>What study test article was administered / received?</label>
+              <div class="row" formGroupName="testArticleReceived">
+                <div class="col-12">
+                  <input class="my-auto mx-1" type="checkbox" formControlName="approvedDrug">Approved
+                  Drug <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="INDAgent">IND Agent <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="placebo">Placebo <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="approvedDevice">Approved
+                  Device <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="IDEAgent">IDE Agent <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="blindedStudyAgent">Blinded
+                  Study Agent <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="NA">N/A <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="otherFlag">Others <br>
+                  <input *ngIf="formGroup.controls.testArticleReceived.get('otherFlag').value"
+                    class="form-control form-control-rounded" type="text" placeholder="Other Specify"
+                    formControlName="othersText">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6 mt-1">
+              <label>Action Taken</label>
+              <!-- <textarea class="form-control form-control-rounded" rows="3" [(ngModel)]="data.actionTaken"></textarea> -->
+              <select class="form-control form-control-rounded" formControlName="actionTaken">
+                <option value="">-- Please Select --</option>
+                <option value="Dose decreased"> Dose decreased </option>
+                <option value="Dose increased"> Dose increased </option>
+                <option value="Dose interrupted"> Dose interrupted </option>
+                <option value="Drug withdrawn"> Drug withdrawn </option>
+                <option value="No change"> No change </option>
+                <option value="Not applicable"> Not applicable </option>
+                <option value="Unknown"> Unknown </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row mt-1">
+            <div class="col-12 d-flex justify-content-end">
+              <button *ngIf="!editFlag" class="btn btn-rounded btn-primary mr-2" (click)="addRow()">Add</button>
+              <button *ngIf="editFlag" class="btn btn-rounded btn-primary mr-2" (click)="updateRow()">Update</button>
+              <button class="btn btn-rounded btn-secondary" (click)="cancel()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

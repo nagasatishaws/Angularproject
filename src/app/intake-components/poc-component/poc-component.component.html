@@ -1,0 +1,238 @@
+<mat-tab-group>
+  <!-- <mat-tab label="Adverse Event">
+    <div class="container">
+      <div class="row mt-2">
+        <div class="col-6">
+          <label>Reaction Onset Date</label>
+          <div class="row">
+            <div class="col-10 pr-0 mt-1">
+              <input matInput [matDatepicker]="picker2" class="form-control form-control-rounded"
+                [(ngModel)]="nerMappedData.event.reactionOnsetDate" />
+            </div>
+            <div class="col-2 pl-0 pr-0">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <label>Seriousness</label>
+          <div class="row ml-1 mr-1">
+            <mat-radio-group aria-label="Select Seriousness" [(ngModel)]="nerMappedData.event.seriousness">
+              <mat-radio-button value="Yes">Yes</mat-radio-button>
+              <mat-radio-button value="No" class="ml-1">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <label>Seriouness Criteria</label>
+          <div *ngFor="let seriousness of severityList; let i = index">
+            <mat-checkbox [(ngModel)]="nerMappedData.event.seriousnessCriteria[i]"
+              (change)="toggleSeriousnessCriteria(seriousnessList[i], i)">
+              {{seriousness}}</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-6">
+          <label>Indication</label>
+          <input placeholder="Indication" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.event.indication" />
+        </div>
+
+        <div class="col-6">
+          <label>Adverse Reaction</label>
+          <input placeholder="Adverse Reaction" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.event.adverseReaction" />
+        </div>
+      </div>
+
+      <div class="row mt-4 mb-2">
+        <div class="col-6">
+          <label>Seriouness probability</label>
+          <input placeholder="Seriouness probability" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.event.predictedSeriousness" />
+        </div>
+
+        <div class="col-6">
+          <label>Indication/Adverse Reaction</label>
+          <input placeholder="Seriouness probability" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.event.indicationAdverseReaction" />
+        </div>
+      </div>
+    </div>
+  </mat-tab> -->
+
+  <mat-tab label="Header">
+    <div class="container">
+      <div class="row mt-2">
+        <div class="col-6">
+          <label>Priority</label>
+          <mat-select placeholder="Priority" class="form-control form-control-rounded" [(ngModel)]="priority">
+            <mat-option value="high">
+              High
+            </mat-option>
+            <mat-option value="medium">
+              Medium
+            </mat-option>
+            <mat-option value="low">
+              Low
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="col-3">
+          <label>Deadline</label>
+          <input placeholder="Deadline" class="form-control form-control-rounded" type="number" [(ngModel)]="deadline"
+            NumericInput />
+        </div>
+
+        <div class="col-3">
+          <label>Deadline Units</label>
+          <mat-select placeholder="Deadline Units" class="form-control form-control-rounded"
+            [(ngModel)]="deadlineUnits">
+            <mat-option value="days">
+              Days
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-6">
+          <label>Date Received</label>
+          <input placeholder="Enter Weight" class="form-control form-control-rounded" type="date"
+            [(ngModel)]="nerMappedData.header.dateReceived" />
+        </div>
+
+        <div class="col-6">
+          <label>Date Of The Report</label>
+          <input placeholder="Enter Weight" class="form-control form-control-rounded" type="date"
+            [(ngModel)]="nerMappedData.header.dateOfTheReport" />
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Patient Information">
+    <div class="container">
+      <div class="row mt-2">
+        <div class="col-6">
+          <label>Country</label>
+          <input placeholder="Enter Country" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.patient.basicInfo.country" />
+        </div>
+
+        <div class="col-3">
+          <label>Age</label>
+          <input placeholder="Enter Age" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.patient.basicInfo.age" />
+        </div>
+
+        <div class="col-3">
+          <label>Age Units</label>
+          <input placeholder="Enter Age Unit" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.patient.basicInfo.ageUnit" />
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-6">
+          <label>Sex</label>
+          <mat-select placeholder=" Select Gender" class="form-control form-control-rounded"
+            [(ngModel)]="nerMappedData.patient.basicInfo.sex">
+            <mat-option value="M">
+              Male
+            </mat-option>
+            <mat-option value="F">
+              Female
+            </mat-option>
+            <mat-option value="Unknown">
+              Unknown
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="col-3">
+          <label>Weight</label>
+          <input placeholder="Enter Weight" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.patient.basicInfo.weight" />
+        </div>
+
+        <div class="col-3">
+          <label>Weight Units</label>
+          <input placeholder="Enter Weight Unit" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.patient.basicInfo.weightUnit" />
+        </div>
+      </div>
+
+      <!-- <div class="row mt-4">
+        <div class="col-6">
+          <label>Patient Identifier</label>
+          <input placeholder="Enter Patient Identifier" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.patient.basicInfo.patientIdentifier" />
+        </div>
+
+        <div class="col-6">
+          <label>Randomization Number</label>
+          <input placeholder="Enter Randomization Number" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.patient.basicInfo.randomizationNumber" />
+        </div>
+      </div> -->
+
+      <!-- <div class="row mt-4 mb-2">
+        <div class="col-6">
+          <label>Protocol Number</label>
+          <input placeholder="Enter Protocol Number" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="nerMappedData.patient.basicInfo.protocolNumber" />
+        </div>
+      </div> -->
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Suspect Product">
+    <div class="container" *ngFor="let drug of nerMappedData.suspectProduct.drug.drugList">
+      <div class="row mt-2">
+        <div class="col-12">
+          <label>Suspect Drug</label>
+          <input placeholder="Enter Product" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="drug.suspectDrugName" />
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-6">
+          <label>Dose</label>
+          <input placeholder="Dose" class="form-control form-control-rounded" type="text" [(ngModel)]="drug.dose" />
+        </div>
+
+        <div class="col-6">
+          <label>Route of Administration</label>
+          <input placeholder="Route Of Administration" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="drug.routeOfAdministration" />
+        </div>
+      </div>
+
+      <div class="row mt-2 mb-2">
+        <div class="col-12">
+          <label>Indications</label>
+          <input placeholder="Enter Product" class="form-control form-control-rounded" type="text"
+            [(ngModel)]="drug.indication" />
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<div class="row m-2">
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn btn-rounded btn-primary" (click)="createCase()">
+      Create Cases
+    </button>
+  </div>
+</div>

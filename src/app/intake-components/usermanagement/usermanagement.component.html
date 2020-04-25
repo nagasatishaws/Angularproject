@@ -1,0 +1,94 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 25 sep 2019
+*/
+-->
+
+
+<div class="row d-flex justify-content-end">
+  <div class="mr-4 mt-2">
+    <mat-checkbox [(ngModel)]="showInactive" (change)="toggleActiveUsers($event)">Show Inactive</mat-checkbox>
+  </div>
+  <div class="mr-2 search-bar-custom">
+    <input type="text" placeholder="Search" (keyup)="filterItem($event)" />
+    <i class="search-icon text-muted i-Magnifi-Glass1"></i>
+  </div>
+  <button mat-mini-fab color="primary" (click)="adduser()" [disabled]="!create">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div class="mt-3">
+  <!-- <ngx-datatable class="material" [rows]="rows" [columns]="columns" [columnMode]="'force'" [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="40" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="40"
+    rowHeight="auto" (activate)="onRowClick($event)">
+  </ngx-datatable> -->
+  <ngx-datatable class="material" [rows]="filteredItems" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="40" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="40" rowHeight="auto"
+    (activate)="onRowClick($event)" [messages]="nodata">
+    <ngx-datatable-column prop="firstName">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">First Name</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <span class="c-p">{{ value }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+    <!-- <ngx-datatable-column prop="last_name">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Last Name</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column> -->
+    <ngx-datatable-column prop="emailId">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Email ID</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!-- <ngx-datatable-column prop="mobile_no">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Mobile Number</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column> -->
+
+    <ngx-datatable-column prop="department">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Department</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="designation">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Designation</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column>
+      <ng-template ngx-datatable-header-template>
+        Actions
+      </ng-template>
+      <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+        <mat-slide-toggle [checked]="row.status === 'active' ? active : inactive" (click)="toggle(row._id)">
+        </mat-slide-toggle>
+        <!-- <mat-slide-toggle [checked]="isStatus" (click)="toggle(rowIndex)" *ngIf="row.status === 'inactive'"> -->
+        <!-- </mat-slide-toggle> -->
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

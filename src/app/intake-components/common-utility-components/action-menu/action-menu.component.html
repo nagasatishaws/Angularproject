@@ -1,0 +1,19 @@
+<div *ngIf="display">
+    <div *ngFor="let item of actionContents" mat-title>
+        <div class="px-3 mat-body-2">{{ item.title }}</div>
+        <mat-divider></mat-divider>
+        <div *ngFor="let content of item?.contents">
+            <button *ngIf="content.disabled" class="mat-menu-item-sm" mat-menu-item
+                (click)="selectItem(item.title,content)" disabled style="background-color: rgba(128, 128, 128, 0.068);">
+                <mat-icon style="color: #adadad;">{{ content.icon }}</mat-icon>
+                <span style="color: #adadad;">{{ content.label }}</span>
+            </button>
+
+            <button *ngIf="!content.disabled" class="mat-menu-item-sm" mat-menu-item
+                (click)="selectItem(item.title,content)" style="cursor: pointer !important;">
+                <mat-icon>{{ content.icon }}</mat-icon>
+                <span>{{ content.label }}</span>
+            </button>
+        </div>
+    </div>
+</div>

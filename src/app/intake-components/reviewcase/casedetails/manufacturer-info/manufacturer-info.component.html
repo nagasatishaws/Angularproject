@@ -1,0 +1,56 @@
+<div class="row m-2">
+  <div class="col-12">
+    <div class="form-group row mt-2">
+      <div class="col-12">
+        <label>Name of the Manufacturer</label>
+        <input class="form-control form-control-rounded" type="text" placeholder="Name of the Manufacturer"
+          [(ngModel)]="data.nameOfManufacturer">
+      </div>
+    </div>
+
+    <div class="form-group row mt-2">
+      <div class="col-12">
+        <label>Address of the Manufacturer</label>
+        <textarea class="form-control form-control-rounded" rows="5" placeholder="Address of the Manufacturer"
+          [(ngModel)]="data.addressOfManufacturer"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Manufacturer Control Number</label>
+        <input class="form-control form-control-rounded" type="text" placeholder="Manufacturer Control Number"
+          [(ngModel)]="data.controlNumber">
+      </div>
+
+      <div class="col-6">
+        <label>Date Received by the Manufacturer</label>
+        <input class="form-control form-control-rounded" type="date" placeholder="Manufacturer Number"
+          [(ngModel)]="data.dateReceivedByTheManufacturer">
+      </div>
+    </div>
+
+    <div class="form-group row mt-2">
+      <!-- <div class="col-6">
+        <label>Report Source</label>
+        <div class="row">
+          <div class="col-12">
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.source.study">Study <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.source.literature">Literature <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.source.healthProfessional">Health Professional
+            <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.source.otherFlag">Other <br>
+            <input *ngIf="data.source.otherFlag" class="form-control form-control-rounded" type="text"
+              placeholder="Other Specify" [(ngModel)]="data.source.otherText">
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col-12">
+        <label>Remarks</label>
+        <textarea class="form-control form-control-rounded" rows="5" placeholder="Remarks"
+          [(ngModel)]="data.remarks"></textarea>
+      </div>
+    </div>
+  </div>
+</div>

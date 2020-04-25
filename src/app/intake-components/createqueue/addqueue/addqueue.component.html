@@ -1,0 +1,109 @@
+<form [formGroup]="form" autocomplete="off" #clientForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="buttonFlag">Add Queue</h4>
+    <h4 class="modal-title" *ngIf="!buttonFlag">Update Queue</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="form-group col-12">
+        <label>Queue Name*</label>
+        <input placeholder="Enter Queue Name" class="form-control form-control-rounded" type="text"
+          [(ngModel)]="queuedata.queueName" formControlName="queueName" *ngIf="buttonFlag" />
+
+        <input *ngIf="!buttonFlag" placeholder="Enter Queue Name" class="form-control form-control-rounded" type="text"
+          [(ngModel)]="queuedata.queueName" disabled formControlName="queueName" />
+        <!-- <mat-error
+          *ngIf="
+            !form.controls['queueName'].valid &&
+            form.controls['queueName'].touched
+          "
+          >{{ errorMessage("queueName") }}</mat-error
+        > -->
+      </div>
+      <div class="form-group col-6">
+        <label>Drug Name</label>
+        <input placeholder="Enter Drug Name" class="form-control form-control-rounded" [(ngModel)]="queuedata.drugName"
+          type="text" formControlName="drugName" />
+        <!-- <input placeholder="Enter Drug Name" class="form-control form-control-rounded" [(ngModel)]="queuedata.drugName"
+          disabled type="text" formControlName="drugName" *ngIf="!buttonFlag" /> -->
+        <!-- <mat-error
+          *ngIf="
+            !form.controls['drugName'].valid &&
+            form.controls['drugName'].touched
+          "
+          >{{ errorMessage("drugName") }}</mat-error
+        > -->
+      </div>
+      <div class="form-group col-6" *ngIf="!clientFlag">
+        <label>Client</label>
+        <mat-select placeholder=" Select Client" class="form-control form-control-rounded" [disabled]="!buttonFlag"
+          [(ngModel)]="queuedata.clientId" formControlName="clientId">
+          <mat-option [value]="clientlists.clientId" *ngFor="let clientlists of clientlist; let i = index">
+            {{ clientlists.clientName }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <!-- <div class="form-group col-6" *ngIf="buttonFlag">
+        <label>Team</label>
+        <mat-select placeholder=" Select Team" multiple class="form-control form-control-rounded"
+          [(ngModel)]="queuedata.team" formControlName="team">
+          <mat-option [value]="teamlists.listOfUsers" *ngFor="let teamlists of teamlist; let i = index"
+            (click)="team(teamlists, $event)">
+            {{ teamlists.teamName }}
+          </mat-option>
+        </mat-select>
+      </div> -->
+      <div class="form-group col-6">
+        <label>Role</label>
+        <mat-select placeholder="Select Role" multiple class="form-control form-control-rounded"
+          [(ngModel)]="queuedata.roleId" formControlName="roleId">
+          <mat-option *ngFor="let role of roleList" [value]="role.roleId">
+            {{ role.roleName }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6">
+        <label>Status</label>
+        <mat-select placeholder="Select Status" class="form-control form-control-rounded" [(ngModel)]="queuedata.status"
+          formControlName="status">
+          <mat-option value="">-- Please Select --</mat-option>
+          <mat-option [value]="status.value" *ngFor="let status of statusList">
+            {{ status.label }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6">
+        <label>Severity</label>
+        <mat-select placeholder="Select Severity" class="form-control form-control-rounded"
+          [(ngModel)]="queuedata.severity" formControlName="severity">
+          <mat-option value="">-- Please Select --</mat-option>
+          <mat-option [value]="severitylists.severityId" *ngFor="let severitylists of severitylist">
+            {{ severitylists.severityName }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group col-6">
+        <label>Users</label>
+        <mat-select placeholder="Select User" multiple class="form-control form-control-rounded"
+          [(ngModel)]="queuedata.userList" formControlName="userList">
+          <mat-option [value]="user.userId" *ngFor="let user of userlist; let i = index">
+            {{ user.firstName + " " + user.lastName }}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onFormSubmit()" *ngIf="buttonFlag"
+      [disabled]="!form.valid">
+      Save
+    </button>
+
+    <button type="submit" ngbAutofocus class="btn btn-primary btn-rounded" (click)="onFormUpdate()" *ngIf="!buttonFlag">
+      Update
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-rounded" [mat-dialog-close]="undefined">
+      Cancel
+    </button>
+  </div>
+</form>

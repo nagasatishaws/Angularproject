@@ -1,0 +1,272 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 19 september 19
+*/
+-->
+
+
+<div class="row d-flex justify-content-end">
+  <div class="w-15">
+    <mat-label class="ml-2">Actions</mat-label>
+    <mat-select class="form-control form-control-rounded" placeholder="Select action" [(ngModel)]="action"
+      (selectionChange)="onActionSelect()">
+      <mat-option value="assign">
+        Assign
+      </mat-option>
+      <mat-option value="unassign">
+        UnAssign
+      </mat-option>
+      <mat-option value="reassign">
+        Re-Assign
+      </mat-option>
+      <mat-option value="forwardToQueue">
+        Forward to Queue
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="w-15 ml-2" *ngIf="userList.length > 0">
+    <mat-label class="ml-2">Users</mat-label>
+    <mat-select class="form-control form-control-rounded" [(ngModel)]="userData">
+      <mat-option *ngFor="let user of userList" [value]="user">
+        {{ user.firstName }}
+      </mat-option>
+    </mat-select>
+  </div>
+
+  <div class="w-15 ml-2" *ngIf="showQueueList">
+    <mat-label class="ml-2">Queues</mat-label>
+    <mat-select class="form-control form-control-rounded" [(ngModel)]="queueId">
+      <mat-option *ngFor="let queue of queueList" [value]="queue.queueId">
+        {{ queue.queueName }}
+      </mat-option>
+    </mat-select>
+  </div>
+
+  <div class="ml-2 mr-3 mt-3 d-flex justify-content-end">
+    <button type="button" [disabled]="!caseData.checked" class="btn btn-primary btn-rounded" (click)="onSubmit()">
+      Save
+    </button>
+  </div>
+</div>
+
+<!-- <div class="row d-flex justify-content-end">
+  <div class="col-9 d-flex justify-content-end">
+    <div class="w-25">
+      <mat-label>Actions</mat-label>
+      <mat-select class="form-control form-control-rounded" [(ngModel)]="action" (selectionChange)="onActionSelect()">
+        <mat-option value="assign">
+          Assign
+        </mat-option>
+        <mat-option value="unassign">
+          UnAssign
+        </mat-option>
+        <mat-option value="reassign">
+          Re-Assign
+        </mat-option>
+        <mat-option value="forwardToQueue">
+          Forward to Queue
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+  <div class="btn-group"
+       dropdown>
+    <button type="button"
+            id="button-basic"
+            dropdownToggle
+            class="btn btn-primary btn-rounded dropdown-toggle mr-2"
+            aria-controls="dropdown-basic">Actions <span class="caret"></span></button>
+    <ul id="dropdown-basic"
+        *dropdownMenu
+        class="dropdown-menu"
+        role="menu"
+        aria-labelledby="button-basic">
+      <li role="menuitem"><a class="dropdown-item">Assign</a></li>
+      <li role="menuitem"><a class="dropdown-item">Un Assign</a></li>
+      <li role="menuitem"><a class="dropdown-item">Re-Assign</a></li>
+      <li role="menuitem"><a class="dropdown-item">Forward to Queue</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-2" *ngIf="isSuperAdmin && showClientList">
+    <mat-label>Clients</mat-label>
+    <mat-select class="form-control form-control-rounded" [(ngModel)]="clientId"
+      [disabled]="action === 'forwardToQueue' ? false:true" (selectionChange)="onClientSelect()">
+      <mat-option *ngFor="let client of clientsList" [value]="client.clientId">
+        {{client.clientName}}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="col-2" *ngIf="userList.length > 0">
+    <mat-label>Users</mat-label>
+    <mat-select class="form-control form-control-rounded" [(ngModel)]="userData">
+      <mat-option *ngFor="let user of userList" [value]="user">
+        {{user.firstName}}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="col-2" *ngIf="showQueueList">
+    <mat-label>Queues</mat-label>
+    <mat-select class="form-control form-control-rounded" [(ngModel)]="queueId">
+      <mat-option *ngFor="let queue of queueList" [value]="queue.queueId">
+        {{queue.queueName}}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="col-1 mt-3 d-flex justify-content-end">
+    <button type="button" class="btn btn-primary btn-rounded" (click)="onSubmit()">Save</button>
+  </div>
+
+</div> -->
+
+<div class="mt-3">
+  <ngx-datatable class="material" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="40" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="40" rowHeight="auto"
+    (activate)="onRowSelect($event)" [messages]="nodata">
+    <ngx-datatable-column prop="caseId">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Action</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <mat-checkbox disabled class="mt-1 ml-2" [checked]="value === caseData.data ? true : false"></mat-checkbox>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!-- <ngx-datatable-column prop="action">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Action</span>
+      </ng-template>
+      <ng-template let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+        <mat-checkbox class="mt-1 ml-2" (click)="onRowSelect(rowIndex)" [(ngModel)]="rows[rowIndex].action">
+        </mat-checkbox>
+      </ng-template>
+    </ngx-datatable-column> -->
+
+    <ngx-datatable-column prop="caseId">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Case ID</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <span class="c-p">{{ value }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column prop="eventDescription">
+      <ng-template ngx-datatable-header-template>
+        <span class="c-p">Case Description</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <span class="c-p">{{ value }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!-- <ngx-datatable-column prop="Eventdescription">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Event Description</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column> -->
+    <ngx-datatable-column prop="drugName">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Drug Name</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <!-- <ngx-datatable-column prop="ADR">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Adverse Drug Reaction(ADR)</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column> -->
+    <ngx-datatable-column prop="severity">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Seriousness</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="assignedToUser.userName">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Assign To</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column prop="caseQueue.queueName">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Queue Name</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column prop="createdTime">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p" (click)="sort()">Reported Date</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value | date: "dd/MM/yyyy" }}
+      </ng-template>
+    </ngx-datatable-column>
+    <!-- <ngx-datatable-column prop="caseQueue.queueName">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Queue Name</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column> -->
+    <ngx-datatable-column prop="status">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Status</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <img src="../../../assets/images/processing.png" *ngIf="value === 'processing'" height="30px"
+          title="{{ value }}" />
+        <img src="../../../assets/images/approve.png" *ngIf="value === 'approved'" height="30px" title="{{ value }}" />
+        <img src="../../../assets/images/reject.png" *ngIf="value === 'rejected'" height="30px" title="{{ value }}" />
+        <img src="../../../assets/images/reject.png" *ngIf="value === 'failed'" height="30px" title="{{ value }}" />
+        <div class="c100 small green p100" *ngIf="value === 'processed'" title="{{ value }}">
+          <div class="slice">
+            <div class="bar"></div>
+            <div class="fill"></div>
+          </div>
+        </div>
+        <div class="c100 small green p40" *ngIf="value === 'new'" title="{{ value }}">
+          <div class="slice">
+            <div class="bar"></div>
+            <div class="fill"></div>
+          </div>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <!-- <ngx-datatable-column prop="Team">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Team</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="Users">
+      <ng-template ngx-datatable-header-template let-sort="sortFn">
+        <span class="c-p">Users</span>
+      </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{value}}
+      </ng-template>
+    </ngx-datatable-column> -->
+  </ngx-datatable>
+</div>

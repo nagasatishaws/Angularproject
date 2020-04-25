@@ -1,0 +1,76 @@
+<div class="row m-2">
+  <div class="col-12">
+    <h5 class="mt-1">Concomitant Drugs List</h5>
+    <hr class="mt-2 mb-3">
+    <div class="row">
+      <div class="col-12">
+        <table class="table" style="border: 1px solid #ddd; table-layout: fixed;">
+          <thead>
+            <tr style="text-align: center;">
+              <th scope="col" *ngFor="let header of labDetailsHeaders">{{header}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data; let i = index" style="text-align: center;">
+              <td colspan="1" *ngFor="let key of labDetailsKeys;">{{row[key]}}</td>
+              <td>
+                <div class="row">
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-edit c-p" (click)="editRowClick(i)"></span>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-trash text-danger c-p" (click)="deleteRowClick(i)"></span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <form [formGroup]="formGroup">
+      <div class="form-group row mt-2">
+        <div class="col-6">
+          <label>Drug Name</label>
+          <input class="form-control form-control-rounded" type="text" placeholder="Drug Name"
+            formControlName="drugName">
+        </div>
+
+        <div class="col-6">
+          <label>Dose</label>
+          <input class="form-control form-control-rounded" type="text" placeholder="Dose" formControlName="dose">
+        </div>
+      </div>
+
+      <div class="form-group row mt-2">
+        <div class="col-6">
+          <label>Start Date</label>
+          <input class="form-control form-control-rounded" type="date" placeholder="Start Date"
+            formControlName="startDate">
+        </div>
+
+        <div class="col-6">
+          <label>End Date</label>
+          <input class="form-control form-control-rounded" type="date" placeholder="End Date" formControlName="endDate">
+        </div>
+      </div>
+
+      <div class="form-group row mt-2">
+        <div class="col-12">
+          <label>Indication</label>
+          <input class="form-control form-control-rounded" type="text" placeholder="Indication"
+            formControlName="indication">
+        </div>
+      </div>
+    </form>
+
+    <div class="form-group row mt-1">
+      <div class="col-12 d-flex justify-content-end">
+        <button *ngIf="!editFlag" class="btn btn-rounded btn-primary mr-2" (click)="addRow()">Add</button>
+        <button *ngIf="editFlag" class="btn btn-rounded btn-primary mr-2" (click)="updateRow()">Update</button>
+        <button class="btn btn-rounded btn-secondary" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

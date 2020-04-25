@@ -1,0 +1,115 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 26 september 19
+*/
+-->
+
+
+<div class="row d-flex justify-content-end">
+  <!-- <div class="mr-2 search-bar-custom">
+    <input type="text" placeholder="Search" />
+    <i class="search-icon text-muted i-Magnifi-Glass1"></i>
+  </div> -->
+  <button mat-mini-fab
+          color="primary"
+          (click)="addlicense()"
+          [disabled]="!create">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div class="mt-3">
+  <ngx-datatable class="material"
+                 [rows]="licenselist"
+                 [columnMode]="'force'"
+                 [headerHeight]="50"
+                 [footerHeight]="50"
+                 [rowHeight]="40"
+                 [columnMode]="'force'"
+                 [headerHeight]="50"
+                 [footerHeight]="50"
+                 [rowHeight]="40"
+                 rowHeight="auto"
+                 [messages]="nodata">
+    <ngx-datatable-column prop="startDate">
+      <ng-template ngx-datatable-header-template
+                   let-sort="sortFn">
+        <span class="c-p"
+              (click)="sort()">Start Date</span>
+      </ng-template>
+      <ng-template let-value="value"
+                   ngx-datatable-cell-template>
+        {{ formatToDate(value) | date: "dd/MM/yyyy" }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="endDate">
+      <ng-template ngx-datatable-header-template
+                   let-sort="sortFn">
+        <span class="c-p"
+              (click)="sort()">End Date</span>
+      </ng-template>
+      <ng-template let-value="value"
+                   ngx-datatable-cell-template>
+        {{ formatToDate(value) | date: "dd/MM/yyyy" }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="noActUsers">
+      <ng-template ngx-datatable-header-template
+                   let-sort="sortFn">
+        <span class="c-p"
+              (click)="sort()">No Of Active Users</span>
+      </ng-template>
+      <ng-template let-value="value"
+                   ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column prop="clientName">
+      <ng-template ngx-datatable-header-template
+                   let-sort="sortFn">
+        <span class="c-p"
+              (click)="sort()">Client</span>
+      </ng-template>
+      <ng-template let-value="value"
+                   ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column prop="modules">
+      <ng-template ngx-datatable-header-template
+                   let-sort="sortFn">
+        <span class="c-p"
+              (click)="sort()">Modules</span>
+      </ng-template>
+      <ng-template let-value="value"
+                   ngx-datatable-cell-template>
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip color="primary"
+                    selected
+                    *ngFor="let item of value; let i = index">{{ item.moduleName }}</mat-chip>
+        </mat-chip-list>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column>
+      <ng-template ngx-datatable-header-template>
+        Actions
+      </ng-template>
+      <ng-template let-row="row"
+                   let-rowIndex="rowIndex"
+                   ngx-datatable-cell-template>
+        <mat-slide-toggle checked="true"
+                          (click)="toggle(rowIndex)"
+                          *ngIf="row.status === 'active'"></mat-slide-toggle>
+        <mat-slide-toggle checked="false"
+                          (click)="toggle(rowIndex)"
+                          *ngIf="row.status === 'inactive'">
+        </mat-slide-toggle>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

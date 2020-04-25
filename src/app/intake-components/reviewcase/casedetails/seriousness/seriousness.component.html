@@ -1,0 +1,71 @@
+<div class="row m-2">
+  <div class="col-12">
+
+    <div class="form-group row mt-2">
+      <div class="col-6 mt-2">
+        <label>Is it serious?</label>
+        <input class="my-auto mx-2" type="checkbox" [(ngModel)]="data.isSerious">
+      </div>
+
+      <div *ngIf="data.isSerious" class="col-6">
+        <label>Seriouness Criteria</label>
+        <div class="row">
+          <div class="col-12">
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.seriousnessCriteria.patientDied">Patient died
+            <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.seriousnessCriteria.hospitalization">Involved
+            or prolonged inpatient hospitalization <br>
+            <div class="form-group row" *ngIf="data.seriousnessCriteria.hospitalization">
+              <div class="col-6">
+                <label>Start Date</label>
+                <input class="form-control form-control-rounded"
+                  [(ngModel)]="data.seriousnessCriteria.hospitalizationStartDate" type="date">
+              </div>
+              <div class="col-6">
+                <label>End Date</label>
+                <input class="form-control form-control-rounded"
+                  [(ngModel)]="data.seriousnessCriteria.hospitalizationEndDate" type="date">
+              </div>
+            </div>
+            <input class="my-auto mx-1" type="checkbox"
+              [(ngModel)]="data.seriousnessCriteria.disabilityOrIncapacity">Involved persistence or significant
+            disability or incapacity<br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.seriousnessCriteria.lifeThreatening">Life
+            threatening <br>
+            <input class="my-auto mx-1" type="checkbox"
+              [(ngModel)]="data.seriousnessCriteria.congenitalAnomaly">Congenital Anomaly <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.seriousnessCriteria.othersFlag">Other <br>
+            <input *ngIf="data.seriousnessCriteria.othersFlag" class="form-control form-control-rounded" type="text"
+              placeholder="Other Specify" [(ngModel)]="data.seriousnessCriteria.othersText">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row mt-2">
+      <div class="col-6 mt-2">
+        <label>Is the problem / event a result of a protocol deviation / exception / violation?</label>
+        <input class="my-auto mx-2" type="checkbox" [(ngModel)]="data.deviationResult">
+      </div>
+
+      <div class="col-6">
+        <label>Reaction Outcome</label>
+        <div class="row">
+          <div class="col-12">
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.outcome.recovered">Recovered / Resolved <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.outcome.recoveringResolving">Recovering /
+            Resolving <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.outcome.notRecovered">Not recovered / not
+            resolved<br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.outcome.fatal">Fatal <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.outcome.unknown">Unknown <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.outcome.otherFlag">Other <br>
+            <input *ngIf="data.outcome.otherFlag" class="form-control form-control-rounded" type="text"
+              placeholder="Other Specify" [(ngModel)]="data.outcome.othersText">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

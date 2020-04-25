@@ -1,0 +1,49 @@
+<!--
+  /**
+* Author - Biplab
+* Version - 1.0
+* Create date - 9 september 19
+*/
+-->
+
+<div class="container-fluid">
+  <!-- <div class="mat-dialog-title">
+      <div>{{ data.title }}</div>
+    </div> -->
+  <!-- <hr> -->
+  <div class="mat-dialog-content">
+    <div class="row mr-0">
+      <div
+        class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 modal-content-labels pad-0"
+      >
+        <strong>{{ data.statusText }}</strong>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button
+      class="btn btn-rounded btn-primary  m-1"
+      *ngIf="data.showSubmit"
+      (click)="modalSubmit()"
+      [mat-dialog-close]="true"
+    >
+      {{ data.submitText }}
+    </button>
+    <button
+      class="btn btn-rounded btn-secondary  m-1"
+      [mat-dialog-close]="false"
+      *ngIf="data.showCancel"
+      (click)="modalCancel()"
+    >
+      {{ data.cancelText }}
+    </button>
+    <button
+      class="btn btn-rounded btn-primary  m-1"
+      *ngIf="data.changeMode"
+      (click)="modalChangeMode()"
+      [mat-dialog-close]="true"
+    >
+      {{ data.changeModeText }}
+    </button>
+  </mat-dialog-actions>
+</div>

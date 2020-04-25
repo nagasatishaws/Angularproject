@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-12">
+    <button class="btn btn-rounded" routerLink="/mainlayout/dashboard">
+      <span class="fas fa-arrow-left"></span>
+    </button>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <!-- ICON BG -->
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" style="background-color: #6cadee;">
+      <div class="card-body text-center">
+        <!-- <i class="i-Add-User"></i> -->
+        <div class="ml-auto mr-auto" style="color: white;">
+          <p class="mt-2 mb-0 text-16">Pending cases</p>
+          <p class="text-24 line-height-1 mb-2">205</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" style="background-color: #d63031;">
+      <div class="card-body text-center">
+        <!-- <i class="i-Financial"></i> -->
+        <div class="ml-auto mr-auto" style="color: white;">
+          <p class="mt-2 mb-0 text-16">Criticial/ Serious cases</p>
+          <p class="text-24 line-height-1 mb-2">4021</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" style="background-color: #6c5ce7;">
+      <div class="card-body text-center">
+        <!-- <i class="i-Checkout-Basket"></i> -->
+        <div class="ml-auto mr-auto" style="color: white;">
+          <p class="mt-2 mb-0 text-16">High priority cases</p>
+          <p class="text-24 line-height-1 mb-2">80</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4" style="background-color: #4cd8b0;">
+      <div class="card-body text-center">
+        <!-- <i class="i-Money-2"></i> -->
+        <div class="ml-auto mr-auto" style="color: white;">
+          <p class="mt-2 mb-0 text-16">Completed cases</p>
+          <p class="text-24 line-height-1 mb-2">120</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row mt-4">
+  <div class="col-lg-8 col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title">Source vs Case count</div>
+        <!-- <div echarts [options]="salesChartBar" [autoResize]="true" style="height: 300px;"></div> -->
+        <div echarts [options]="option" class="demo-chart"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-sm-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title">Drug vs Count</div>
+        <div echarts [options]="salesChartPie" [autoResize]="true" style="height: 300px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body p-0">
+        <h5 class="card-title m-0 p-3">Case Flow for this month</h5>
+        <div echarts [options]="chartLineOption3"></div>
+      </div>
+    </div>
+  </div>
+</div>

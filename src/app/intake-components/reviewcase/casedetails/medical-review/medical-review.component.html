@@ -1,0 +1,68 @@
+<div class="row m-2">
+  <div class="col-12">
+    <!-- <div class="form-group row mt-2">
+      <div class="col-12">
+        <label>Reporter Assessment</label>
+        <textarea class="form-control form-control-rounded" placeholder="Reporter Assessment" rows="5"
+          [(ngModel)]="data.reporterAssessment"></textarea>
+      </div>
+    </div> -->
+
+    <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Sponsor - Is the reaction related?</label>
+        <!-- <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.isReacRelatedSpon"> -->
+        <div class="row">
+          <div class="col">
+            <input class="mx-1" type="radio" name="isReacRelatedSpon" [(ngModel)]="data.isReacRelatedSpon"
+              value="related">Related <br>
+            <input class="mx-1" type="radio" name="isReacRelatedSpon" [(ngModel)]="data.isReacRelatedSpon"
+              value="notRelated">Not Related <br>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label>Casuality Assessment(Sponsor)</label>
+        <textarea class="form-control form-control-rounded" placeholder="Casuality Assessment(Sponsor)" rows="5"
+          [(ngModel)]="data.casualityAssessmentSpon"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Investigator - Is the reaction related?</label>
+        <!-- <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.isReacRelatedInves"> -->
+        <div class="row">
+          <div class="col">
+            <input class="mx-1" type="radio" name="isReacRelatedInves" [(ngModel)]="data.isReacRelatedInves"
+              value="related">Related <br>
+            <input class="mx-1" type="radio" name="isReacRelatedInves"
+              [(ngModel)]="data.isReacRelateisReacRelatedInvesdSpon" value="notRelated">Not Related <br>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label>Casuality Assessment(Investigator)</label>
+        <textarea class="form-control form-control-rounded" placeholder="Casuality Assessment(Investigator)" rows="5"
+          [(ngModel)]="data.casualityAssessmentInves"></textarea>
+      </div>
+    </div>
+
+    <!-- <div class="form-group row mt-2">
+      <div class="col-6">
+        <label>Case Safety</label>
+        <div class="row">
+          <div class="col-12">
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.safety.listedOrExpected">Listedness /
+            Expectedness <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.safety.includeInReports">Include in
+            Reports(CIOMS) <br>
+            <input class="my-auto mx-1" type="checkbox" [(ngModel)]="data.safety.lineListing">Line Listing <br>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

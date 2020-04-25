@@ -1,0 +1,82 @@
+<!--
+  /**
+* Author - Trinadh
+* Version - 1.0
+* Create date - 25 sep 2019
+*/
+-->
+
+
+<div class="row d-flex justify-content-end">
+  <div class="mr-2 search-bar-custom">
+    <input type="text"
+           placeholder="Search"
+           (keyup)="filterItem($event)" />
+    <i class="search-icon text-muted i-Magnifi-Glass1"></i>
+  </div>
+  <button mat-mini-fab
+          color="primary"
+          (click)="createteam()"
+          [disabled]="!create">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<mat-drawer-container class="mt-4 example-container"
+                      autosize>
+  <mat-drawer #drawer
+              class="example-sidenav"
+              mode="side"
+              [position]="nav_position">
+    <div class="row d-flex justify-content-end">
+      <mat-icon mat-button
+                class="c-p mr-3"
+                (click)="drawer.toggle(); cardflag = false">close</mat-icon>
+    </div>
+    <h4>Team</h4>
+    <h6>Team Name : {{ name }}</h6>
+    <h6>Team Users :</h6>
+    <mat-chip-list>
+      <mat-chip [removable]="removable"
+                *ngFor="let user of teamusers">{{ user.firstName }} {{ user.lastName }}
+        <!-- <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon> -->
+      </mat-chip>
+    </mat-chip-list>
+  </mat-drawer>
+
+  <div class="row p-1">
+    <div class="col-3"
+         *ngIf="filteredItems.length === 0">
+      <span>No data to display</span>
+    </div>
+    <div class="col-3"
+         *ngFor="let team of filteredItems; let i = index">
+      <mat-card class="mb-4">
+        <mat-slide-toggle *ngIf="team.status === 'active'"
+                          (click)="toggle(team._id)"
+                          checked="true"
+                          class="float-right">
+        </mat-slide-toggle>
+        <mat-slide-toggle *ngIf="team.status === 'inactive'"
+                          (click)="toggle(team._id)"
+                          checked="false"
+                          class="float-right">
+        </mat-slide-toggle>
+        <h4 class="text-center c-p font-weight-bold elipsis"
+            title="{{ team.teamName }}"
+            (click)="update ? editteam(team._id) : ''">
+          <u>{{ team.teamName }}</u>
+        </h4>
+
+        <div class="d-flex justify-content-center">
+          <button mat-stroked-button
+                  color="primary"
+                  (click)="viewusers(team); drawer.toggle()"
+                  [disabled]="cardflag == true">
+            View Users
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</mat-drawer-container>

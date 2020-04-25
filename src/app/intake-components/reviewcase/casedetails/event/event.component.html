@@ -1,0 +1,222 @@
+<div class="row m-2">
+  <div class="col-12">
+    <h5 class="mt-1">Adverse Events</h5>
+    <hr class="mt-2 mb-3">
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-responsive" style="border: 1px solid #ddd; table-layout: fixed;">
+          <thead>
+            <tr style="text-align: center;">
+              <th scope="col" *ngFor="let header of labDetailsHeaders">{{header}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data.reactionList; let i = index" style="text-align: center;">
+              <td colspan="1" *ngFor="let key of labDetailsKeys;">{{row[key]}}</td>
+              <td colspan="1">{{showCheckedValue(row['seriousnessCriteria'])}}</td>
+              <td colspan="1">{{row['deviationResult']}}</td>
+              <td colspan="1">{{showCheckedValue(row['outcome'])}}</td>
+              <td>
+                <div class="row">
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-edit c-p" (click)="editRowClick(i)"></span>
+                  </div>
+                  <div class="col-6 d-flex justify-content-center">
+                    <span class="fa fa-trash text-danger c-p" (click)="deleteRowClick(i)"></span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <hr class=" mt-2 mb-3">
+
+    <form [formGroup]="formGroup">
+      <div class="row mt-2">
+        <div class="col-12">
+          <div class="form-group row mt-2">
+            <div class="col-6">
+              <label>Reaction Onset Date</label>
+              <input class="form-control form-control-rounded" type="date" placeholder="Onset date"
+                formControlName="reactionOnsetDate">
+            </div>
+
+            <div class="col-6">
+              <label>Reaction End Date</label>
+              <input class="form-control form-control-rounded" type="date" placeholder="End date"
+                formControlName="reactionEndDate">
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-6">
+              <label>Event Verbatim</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Event Verbatim"
+                formControlName="eventVerbatim">
+            </div>
+            <div class="col-6">
+              <label>Preferred Term</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Preferred Term"
+                formControlName="preferredTerm">
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-6 my-auto">
+              <label>Listedness</label>
+              <div class="row">
+                <div class="col">
+                  <input class="mx-1" type="radio" formControlName="listedness" value="listed"> Listed <br>
+                  <input class="mx-1" type="radio" formControlName="listedness" value="notListed">Not Listed <br>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <label>Listedness Text</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Listedness Text"
+                formControlName="listednessText">
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-6 my-auto">
+              <label>Expectedness</label>
+              <div class="row">
+                <div class="col">
+                  <input class="mx-1" type="radio" formControlName="expectedness" value="expected"> Expected <br>
+                  <input class="mx-1" type="radio" formControlName="expectedness" value="notExpected">Not Expected <br>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <label>Expectedness Text</label>
+              <input class="form-control form-control-rounded" type="text" placeholder="Expectedness Text"
+                formControlName="expectednessText">
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-6 mt-2">
+              <label>Is it serious?</label>
+              <input class="my-auto mx-2" type="checkbox" formControlName="isSerious">
+            </div>
+
+            <div *ngIf="formGroup.controls['isSerious'].value" class="col-6" formGroupName="seriousnessCriteria">
+              <label>Seriouness Criteria</label>
+              <div class="row">
+                <div class="col-12">
+                  <input class="my-auto mx-1" type="checkbox" formControlName="patientDied">Patient died
+                  <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="hospitalization">Involved
+                  or prolonged inpatient hospitalization <br>
+                  <div class="form-group row"
+                    *ngIf="formGroup['controls'].seriousnessCriteria['controls'].hospitalization.value">
+                    <div class="col-6">
+                      <label>Start Date</label>
+                      <input class="form-control form-control-rounded" formControlName="hospitalizationStartDate"
+                        type="date">
+                    </div>
+                    <div class="col-6">
+                      <label>End Date</label>
+                      <input class="form-control form-control-rounded" formControlName="hospitalizationEndDate"
+                        type="date">
+                    </div>
+                  </div>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="disabilityOrIncapacity">Involved
+                  persistence or significant
+                  disability or incapacity<br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="lifeThreatening">Life
+                  threatening <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="congenitalAnomaly">Congenital Anomaly
+                  <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="othersFlag">Other <br>
+                  <input *ngIf="formGroup['controls'].seriousnessCriteria['controls'].othersFlag.value"
+                    class="form-control form-control-rounded" type="text" placeholder="Other Specify"
+                    formControlName="othersText">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-6 mt-2">
+              <label>Is the problem / event a result of a protocol deviation / exception / violation?</label>
+              <input class="my-auto mx-2" type="checkbox" formControlName="deviationResult">
+            </div>
+
+            <div class="col-6" formGroupName="outcome">
+              <label>Reaction Outcome</label>
+              <div class="row">
+                <div class="col-12">
+                  <input class="my-auto mx-1" type="checkbox" formControlName="recovered">Recovered / Resolved <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="recoveringResolving">Recovering /
+                  Resolving <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="notRecovered">Not recovered / not
+                  resolved<br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="fatal">Fatal <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="unknown">Unknown <br>
+                  <input class="my-auto mx-1" type="checkbox" formControlName="otherFlag">Other <br>
+                  <input *ngIf="formGroup['controls'].outcome['controls'].otherFlag.value"
+                    class="form-control form-control-rounded" type="text" placeholder="Other Specify"
+                    formControlName="othersText">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-6">
+              <label>Sponsor - Is the reaction related?</label>
+              <div class="row">
+                <div class="col">
+                  <input class="mx-1" type="radio" name="isReacRelatedSpon" formControlName="isReacRelatedSpon"
+                    value="related">Related <br>
+                  <input class="mx-1" type="radio" name="isReacRelatedSpon" formControlName="isReacRelatedSpon"
+                    value="notRelated">Not Related <br>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <label>Casuality Assessment(Sponsor)</label>
+              <textarea class="form-control form-control-rounded" placeholder="Casuality Assessment(Sponsor)" rows="5"
+                formControlName="casualityAssessmentSpon"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row mt-2">
+            <div class="col-6">
+              <label>Investigator - Is the reaction related?</label>
+              <div class="row">
+                <div class="col">
+                  <input class="mx-1" type="radio" name="isReacRelatedInves" formControlName="isReacRelatedInves"
+                    value="related">Related <br>
+                  <input class="mx-1" type="radio" name="isReacRelatedInves" formControlName="isReacRelatedInves"
+                    value="notRelated">Not Related <br>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <label>Casuality Assessment(Investigator)</label>
+              <textarea class="form-control form-control-rounded" placeholder="Casuality Assessment(Investigator)"
+                rows="5" formControlName="casualityAssessmentInves"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row mt-1">
+            <div class="col-12 d-flex justify-content-end">
+              <button *ngIf="!editFlag" class="btn btn-rounded btn-primary mr-2" (click)="addRow()">Add</button>
+              <button *ngIf="editFlag" class="btn btn-rounded btn-primary mr-2" (click)="updateRow()">Update</button>
+              <button class="btn btn-rounded btn-secondary" (click)="cancel()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
