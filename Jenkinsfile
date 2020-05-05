@@ -19,7 +19,7 @@ node(){
     }
 
     stage('Package Build') {
-        sh "tar -zcvf caseintake.tar.gz dist/Caseintake/"
+        sh "tar -zcvf caseintake.tar.gz dist/angular/"
     }
 
     stage('Artifacts Creation') {
