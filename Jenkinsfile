@@ -19,17 +19,17 @@ node(){
     }
 
     stage('Package Build') {
-        sh "tar -zcvf caseintake.tar.gz dist/angular/"
+        sh "tar -zcvf angular.tar.gz dist/angular/"
     }
 
     stage('Artifacts Creation') {
-        fingerprint 'caseintake.tar.gz'
-        archiveArtifacts 'caseintake.tar.gz'
+        fingerprint 'angular.tar.gz'
+        archiveArtifacts 'angular.tar.gz'
         echo "Artifacts created"
     }
 
     stage('Stash changes') {
-        stash allowEmpty: true, includes: 'caseintake.tar.gz', name: 'buildArtifacts'
+        stash allowEmpty: true, includes: 'angular.tar.gz', name: 'buildArtifacts'
     }
 }
 
@@ -39,6 +39,6 @@ node('awsnode') {
     echo 'Artifacts copied'
 
     echo 'Copy'
-    sh "yes | sudo cp -R caseintake.tar.gz /opt/lampp/htdocs && cd /opt/lampp/htdocs && sudo tar -xvf caseintake.tar.gz"
+    sh "yes | sudo cp -R angular.tar.gz /opt/lampp/htdocs && cd /opt/lampp/htdocs && sudo tar -xvf angular.tar.gz"
     echo 'Copy completed'
 }
