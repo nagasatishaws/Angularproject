@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>fgerpui</groupId>
+  <artifactId>fgerpui</artifactId>
+  <version>1.0</version>
+  <packaging>war</packaging>
+
+  <name>erpui Maven Webapp</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <build>
+    <finalName>erpui</finalName>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.6</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+    	<plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <configuration>
+                <workingDirectory>src/main/fgerpui</workingDirectory>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>install-node-and-npm</id>
+                    <goals>
+                        <goal>install-node-and-npm</goal>
+                    </goals>
+                    <configuration>
+                        <nodeVersion>v12.16.1</nodeVersion>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>npm install</id>
+                    <goals>
+                        <goal>npm</goal>
+                    </goals>
+                    <configuration>
+                        <arguments>install</arguments>
+                    </configuration>
+                </execution>
+                
+                <execution>
+                    <id>npm build</id>
+                    <goals>
+                        <goal>npm</goal>
+                    </goals>
+                    <configuration>
+                        <arguments>run build --prod --source-map=false --output-hashing=all --base-href=/fgerp-UI/</arguments>
+                    </configuration>
+                    <phase>generate-resources</phase>
+                </execution>
+            </executions>
+    	</plugin>
+	    <plugin>
+	        <artifactId>maven-war-plugin</artifactId>
+	        <configuration>
+	            <failOnMissingWebXml>false</failOnMissingWebXml>
+	            <webResources>
+	                <resource>
+	                    <directory>src/main/fgerpui</directory>
+	                </resource>
+	            </webResources>
+	        </configuration>
+	    </plugin>    
+    </plugins>
+  </build>
+</project>
