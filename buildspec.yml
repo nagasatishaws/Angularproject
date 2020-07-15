@@ -1,28 +1,16 @@
+
 version: 0.2
 
 phases:
-  install:
-    commands:
-      # Update libs
-      - apt-get update
-      # Headless Chrome
-      
   pre_build:
     commands:
       - npm install
   build:
     commands:
-      - npm run build:ci
-      - npm run test:ci
-  post_build:
-    commands:
-      - aws s3 sync ./dist/angular-devops s3://angular-project-codepipeline --acl 'public-read' --delete
+      - npm run build
 
 artifacts:
   files:
-    - '**/*.html'
-    - '**/*.js'
-    - '**/*.css'
-    - '**/*.ico'
-  discard-paths: yes
-  base-directory: 'dist/angular-devops'
+    - '**/*'
+  discard-paths: no
+  base-directory: dist/angular-devops
