@@ -1,17 +1,55 @@
-version: 0.2
+node(){
+    stage('Cloning Git') {
+        checkout scm
+    }
+        
+    stage('Install dependencies') {
+        nodejs('nodejs') {
+            sh 'npm install'
+            echo "Modules installed"
+        }
+        
+    }
+    stage('Build') {
+        nodejs('nodejs') {
+            sh 'npm run prod'
+            echo "Build completed"
+        }
+        
+    }
 
-phases:
-  pre_build:
-    commands:
-      - npm install
-  build:
-    commands:
-      - npm run build
+    stage('Package Build') {
+        sh "tar -zcvf multihcm_UI.tar.gz dist/multihcm/"
+    }
 
-artifacts:
-  files:
-    - '**/*'
-  discard-paths: no
-  base-directory: dist/angular-devops
+    stage('Artifacts Creation') {
+        fingerprint 'ADHRMS_UI.tar.gz'
+        archiveArtifacts 'multihcm_UI.tar.gz'
+        echo "Artifacts created"
+    }
+
+    stage('Stash changes') {
+        stash allowEmpty: true, includes: 'multihcm_UI.tar.gz', name: 'buildArtifacts'
+    }
+}
+
+stage ('artifactsto s3') {
+    echo 'Unstash'
+    unstash 'buildArtifacts'
+    echo 'Artifacts copied'
+try {
+   withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'cab200ca-c69e-46e8-9133-b9c7f059200d', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+   sh "aws s3 ls"
+   sh "aws s3 mb s3://HCM-AKRIVIA-UI"
+   sh "yes | sudo cp -R multihcm_UI.tar.gz /opt/lampp/htdocs
+   sh "aws s3 cp -R multihcm_UI.tar.gz s3"//HCM-AKRIVIA-UI" && sudo tar -xvf multihcm_UI.tar.gz"
+   echo 'Copy completed'
+  
+ }
+} 
+  catch (error){
+      sh "scho error in sending artifacts to s3"
+       
+}
 
 
