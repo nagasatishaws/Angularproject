@@ -38,7 +38,7 @@ stage ('artifactsto s3') {
     unstash 'buildArtifacts'
     echo 'Artifacts copied'
 try {
-   withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'cab200ca-c69e-46e8-9133-b9c7f059200d', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+   withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: '', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
    sh "aws s3 ls"
    sh "aws s3 mb s3://HCM-AKRIVIA-UI"
    sh "yes | sudo cp -R multihcm_UI.tar.gz /opt/lampp/htdocs
