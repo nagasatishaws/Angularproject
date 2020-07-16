@@ -47,9 +47,6 @@ try {
   
  }
 } 
-  catch (error){
-      sh "scho error in sending artifacts to s3"
-       
-}
+  
 
 
