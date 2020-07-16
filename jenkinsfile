@@ -41,7 +41,7 @@ try {
    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: '', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
    sh "aws s3 ls"
    sh "aws s3 mb s3://HCM-AKRIVIA-UI"
-   sh "yes | sudo cp -R multihcm_UI.tar.gz /opt/lampp/htdocs
+   
    sh "aws s3 cp -R multihcm_UI.tar.gz s3"//HCM-AKRIVIA-UI" && sudo tar -xvf multihcm_UI.tar.gz"
    echo 'Copy completed'
   
