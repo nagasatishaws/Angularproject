@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# start ec2 instances
+
+aws ec2 start-instances --instance-ids i-01987132b1b2f9bc4
+
+
+#!/bin/bash
+
+# stop ec2 instances
+
+aws ec2 stop-instances --instance-ids i-01987132b1b2f9bc4
+
+
+
+
+
+#!bin/bash
+
+aws s3 sync /home/ubuntu/ s3://angular-s3-logs
+
+
+
+
+
+https://www.youtube.com/watch?v=r19UQLzNbdI
+
+
+
