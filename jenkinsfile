@@ -12,41 +12,33 @@ node(){
     }
     stage('Build') {
         nodejs('nodejs') {
-            sh 'npm run prod'
+            sh 'npm run build'
             echo "Build completed"
         }
         
     }
 
     stage('Package Build') {
-        sh "tar -zcvf multihcm_UI.tar.gz dist/multihcm/"
+        sh "tar -zcvf angular.tar.gz dist/project1/"
     }
 
     stage('Artifacts Creation') {
-        fingerprint 'ADHRMS_UI.tar.gz'
-        archiveArtifacts 'multihcm_UI.tar.gz'
+        fingerprint 'angular.tar.gz'
+        archiveArtifacts 'angular.tar.gz'
         echo "Artifacts created"
     }
 
     stage('Stash changes') {
-        stash allowEmpty: true, includes: 'multihcm_UI.tar.gz', name: 'buildArtifacts'
+        stash allowEmpty: true, includes: 'angular.tar.gz', name: 'buildArtifacts'
     }
 }
 
-stage ('artifactsto s3') {
+node('project1') {
     echo 'Unstash'
     unstash 'buildArtifacts'
     echo 'Artifacts copied'
-try {
-   withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: '', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-   sh "aws s3 ls"
-   sh "aws s3 mb s3://HCM-AKRIVIA-UI"
-   
-   sh "aws s3 cp -R multihcm_UI.tar.gz s3"//HCM-AKRIVIA-UI" && sudo tar -xvf multihcm_UI.tar.gz"
-   echo 'Copy completed'
-  
- }
-} 
-  
 
-
+    echo 'Copy'
+    sh "yes | sudo cp -R angular.tar.gz /var/www/html && cd /var/www/html && sudo tar -xvf angular.tar.gz"
+    echo 'Copy completed'
+}
