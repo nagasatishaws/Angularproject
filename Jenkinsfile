@@ -19,7 +19,7 @@ node(){
     }
 
     stage('Package Build') {
-        sh "tar -zcvf angular.tar.gz dist/angular/"
+        sh "tar -zcvf angular.tar.gz dist/project1/"
     }
 
     stage('Artifacts Creation') {
@@ -33,12 +33,12 @@ node(){
     }
 }
 
-node('awsnode') {
+node('project1') {
     echo 'Unstash'
     unstash 'buildArtifacts'
     echo 'Artifacts copied'
 
     echo 'Copy'
-    sh "yes | sudo cp -R angular.tar.gz /opt/lampp/htdocs && cd /opt/lampp/htdocs && sudo tar -xvf angular.tar.gz"
+    sh "yes | sudo cp -R angular.tar.gz /var/www/html && cd /var/www/html && sudo tar -xvf angular.tar.gz"
     echo 'Copy completed'
 }
