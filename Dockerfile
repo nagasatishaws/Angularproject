@@ -27,14 +27,32 @@
 #RUN COPY ./* ./ng-app
 # FROM node:8-alpine as builder
 # RUN mkdir /ng-app && cp . ng-app
-FROM node:11.4.0-alpine as caseintakeui
-ENV NODE_ENV production
-WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 
-COPY . .
+FROM node
+
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get clean
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY package*.json /app/
+
 RUN npm install
-RUN npm install node-sass
-RUN npm ng build
+
+RUN npm build
 FROM nginx:alpine
 COPY --from=caseintakeui /usr/src/app/dist/Caseintake /usr/share/nginx/html
+
+COPY src /app/src
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
+
+
+
+
+
+
+
