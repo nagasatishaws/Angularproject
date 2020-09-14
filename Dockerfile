@@ -42,7 +42,7 @@ RUN npm install
 
 RUN npm build
 FROM nginx:alpine
-COPY --from= /usr/src/app/dist/Caseintake /usr/share/nginx/html
+COPY --from = /dist/project1 /usr/share/nginx/html
 
 COPY src /app/src
 
