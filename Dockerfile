@@ -1,10 +1,19 @@
-# stage 1
-FROM node:latest as node
+FROM node
+
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get clean
+
+RUN mkdir /app
 WORKDIR /app
-COPY . .
+
+COPY package*.json /app/
+
 RUN npm install
 RUN npm run build --prod
 
-# stage 2
 FROM nginx:alpine
-COPY --from=node /app/dist/angular-app /usr/share/nginx/html
+COPY src /app/src /usr/share/nginx/html
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
