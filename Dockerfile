@@ -35,6 +35,6 @@ COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 COPY . .
 RUN npm install
 RUN npm install node-sass
-RUN npm run build
+RUN npm ng build
 FROM nginx:alpine
 COPY --from=caseintakeui /usr/src/app/dist/Caseintake /usr/share/nginx/html
