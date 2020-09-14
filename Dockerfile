@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json /app/
 
 RUN npm install
-RUN npm run build --prod
+
 
 FROM nginx:alpine
 COPY src /app/src /usr/share/nginx/html
