@@ -1,3 +1,4 @@
+
 FROM node
 
 RUN apt-get update && apt-get upgrade -y \
@@ -11,8 +12,7 @@ COPY package*.json /app/
 RUN npm install
 
 
-FROM nginx:alpine
-COPY src /app/src /usr/share/nginx/html
+COPY src /app/src
 
 EXPOSE 3000
 
