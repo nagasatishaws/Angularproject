@@ -1,18 +1,34 @@
-FROM node
+### STAGE 1: Build ###
 
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get clean
+# We label our stage as 'builder'
+FROM node:9-alpine as builder
 
-RUN mkdir /app
-WORKDIR /app
+COPY package.json package-lock.json ./
 
-COPY package*.json /app/
+RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
-RUN npm install
+## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
+RUN npm i && mkdir /ng-app && cp -R ./node_modules ./ng-app
+
+WORKDIR /ng-app
+
+COPY . .
+
+## Build the angular app in production mode and store the artifacts in dist folder
+RUN $(npm bin)/ng build --prod
 
 
-COPY src /app/src
+### STAGE 2: Setup ###
 
-EXPOSE 3000
+FROM nginx:1.13.3-alpine
 
-CMD [ "npm", "start" ]
+## Copy our default nginx config
+COPY nginx/default.conf /etc/nginx/conf.d/
+
+## Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
+
+## From 'builder' stage copy over the artifacts in dist folder to default nginx public folder
+COPY --from=builder /ng-app/dist /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]
