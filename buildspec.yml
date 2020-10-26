@@ -13,4 +13,4 @@ artifacts:
   files:
     - '**/*'
   discard-paths: no
-  base-directory: dist/angulr
+  base-directory: dist
