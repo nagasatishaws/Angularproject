@@ -1,16 +1,17 @@
 
 version: 0.2
 
-phases:  
+phases:
   pre_build:
     commands:
       - npm install
-build:
+  build:
     commands:
       - npm run build
 
 artifacts:
   files:
     - '**/*'
-  discard-paths: yes
-  base-directory: /dist
+  discard-paths: no
+  base-directory: dist/angular-devops
+
